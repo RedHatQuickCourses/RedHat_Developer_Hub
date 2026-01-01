@@ -1,0 +1,473 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Basics :: Introduction to Red Hat Developer Hub</title>
+    <link rel="prev" href="software-templates.html">
+    <link rel="next" href="template-registration.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Introduction to Red Hat Developer Hub</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="RedHat_Developer_Hub" data-version="1.0.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Introduction to Red Hat Developer Hub</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../LABENV/index.html">Lab Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../internal-developer-platforms/internal-developer-platforms.html">Internal developer platforms</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../internal-developer-platforms/a-platform-for-developers.html">A platform for developers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../internal-developer-platforms/history.html">History</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../internal-developer-platforms/red-hat-developer-hub.html">Red Hat Developer Hub</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../software-catalog/software-catalog.html">Software Catalog</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../software-catalog/overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../software-catalog/entities.html">Entities</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../software-catalog/catalog-info-file.html">catalog-info file</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../software-catalog/initial-setup-and-component-registration.html">Initial setup and component registration</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="templates.html">Templates</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="software-templates.html">Software Templates</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="basics.html">Basics</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="template-registration.html">Template Registration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="template-structure.html">Template Structure</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Introduction to Red Hat Developer Hub</span>
+    <span class="version">1.0.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Introduction to Red Hat Developer Hub</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1.0.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Introduction to Red Hat Developer Hub</a></li>
+    <li><a href="templates.html">Templates</a></li>
+    <li><a href="basics.html">Basics</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Basics</h1>
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph">
+<p>:basic-templates.adoc</p>
+</div>
+</div>
+</div>
+<div class="sect3">
+<h4 id="basic-templates"><a class="anchor" href="#basic-templates"></a>Basics</h4>
+<div class="paragraph">
+<p>Software templates are a cornerstone of any Internal Developer Platform (IDP), and Red Hat Developer Hub leverages them to provide a streamlined, standardized, and self-service experience for developers. They empower developers to quickly scaffold new applications, services, or other software components with predefined configurations and best practices built-in.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>In Red Hat Developer Hub, software templates are powered by the Backstage Scaffolder. The Scaffolder is a plugin that allows users to create new software projects based on predefined templates. It uses a templating engine (like Jinja2 or Handlebars, often integrated with tools like Cookiecutter or Yeoman) to generate files and directories, and it can execute a series of actions (like pushing to Git, creating GitHub repositories, or registering components in the catalog).</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="sect4">
+<h5 id="_what_are_software_templates"><a class="anchor" href="#_what_are_software_templates"></a>What are Software Templates?</h5>
+<div class="paragraph">
+<p>At their core, software templates are predefined blueprints that encapsulate the necessary code, configuration, and setup required to initiate a new software project or component. Instead of manually setting up boilerplate code, build configurations, CI/CD pipelines, and repository structures, developers can simply choose a template, provide a few parameters, and let the platform do the heavy lifting.</p>
+</div>
+<div class="paragraph">
+<p>Key characteristics and benefits:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Standardization:</strong> Enforce consistent project structures, technology stacks, and best practices across the organization. This reduces "snowflake" projects and simplifies maintenance.</p>
+</li>
+<li>
+<p><strong>Speed and Efficiency:</strong> Drastically reduce the time it takes to get a new project or service off the ground, moving from idea to a working skeleton in minutes.</p>
+</li>
+<li>
+<p><strong>Reduced Cognitive Load:</strong> Developers don&#8217;t need to remember complex setup procedures or find the "right" way to start a project. The template guides them.</p>
+</li>
+<li>
+<p><strong>Automated Best Practices:</strong> Embed security policies, linting rules, testing frameworks, and deployment configurations directly into the template, ensuring compliance from day one.</p>
+</li>
+<li>
+<p><strong>Self-Service:</strong> Empower developers to provision their own resources and kickstart projects without needing to involve other teams (e.g., operations, platform engineering) for initial setup.</p>
+</li>
+<li>
+<p><strong>Evolutionary:</strong> Templates can be updated and versioned, allowing the platform team to roll out new best practices and technologies seamlessly.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_how_do_software_templates_work"><a class="anchor" href="#_how_do_software_templates_work"></a>How do Software Templates Work?</h5>
+<div class="paragraph">
+<p>The process of using a software template typically involves these steps:</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Discovery:</strong> A developer browses available templates in the Red Hat Developer Hub&#8217;s "Create" section.</p>
+</li>
+<li>
+<p><strong>Selection:</strong> The developer chooses a template that aligns with their needs (e.g., "Node.js REST API," "Quarkus Microservice," "React Frontend").</p>
+</li>
+<li>
+<p><strong>Input:</strong> The template presents a form where the developer provides specific parameters for their new project, such as:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Component ID (e.g., <code>my-new-service</code>)</p>
+</li>
+<li>
+<p>Owner team (e.g., <code>devops-team</code>)</p>
+</li>
+<li>
+<p>Repository URL (where the new code will be pushed)</p>
+</li>
+<li>
+<p>Specific configuration options (e.g., database type, port number)</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Scaffolding:</strong> Once the form is submitted, the Scaffolder component takes over. It uses the template&#8217;s definition and the provided input to:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Clone a skeleton repository or generate files from scratch.</p>
+</li>
+<li>
+<p>Substitute variables in template files with the user&#8217;s input.</p>
+</li>
+<li>
+<p>Execute a series of predefined "actions" (e.g., create a new Git repository, push the generated code, create a CI/CD pipeline, register the new component in the Software Catalog).</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Completion:</strong> The developer is notified once the scaffolding process is complete. They can then navigate to their new repository, begin development, and see the new component listed in the Red Hat Developer Hub Software Catalog.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-important" title="Important"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>The "Basics" of templates primarily revolve around understanding <strong>what</strong> they are and <strong>how to use</strong> them to create new components. Details about <strong>how to create or register</strong> templates are covered in subsequent topics like "Template Registration" and "Template Structure."</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect4">
+<h5 id="_hands_on_activity_creating_a_component_using_a_basic_template"><a class="anchor" href="#_hands_on_activity_creating_a_component_using_a_basic_template"></a>Hands-on Activity: Creating a Component using a Basic Template</h5>
+<div class="paragraph">
+<p>In this activity, you will learn how to use an existing software template within Red Hat Developer Hub to create a new component. This will demonstrate the power of self-service scaffolding.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+<div class="paragraph">
+<p>For this lab, we assume you have access to a running Red Hat Developer Hub instance with at least one basic template already registered and available for use. Your Red Hat Developer Hub administrator should provide you with the URL and necessary access credentials.</p>
+</div>
+</td>
+</tr>
+</table>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>Access to a running Red Hat Developer Hub instance.</p>
+</li>
+<li>
+<p>A basic template (e.g., "Node.js Starter App," "Simple Go Service," or a similar pre-configured template) registered and visible in the "Create" section.</p>
+</li>
+<li>
+<p>A Git provider (e.g., GitHub, GitLab) where the new repository can be created and pushed. You will need a personal access token (PAT) or similar credentials if the template is configured to create repositories on your behalf.</p>
+</li>
+</ul>
+</div>
+<div class="olist arabic">
+<div class="title">Steps</div>
+<ol class="arabic">
+<li>
+<p><strong>Log in to Red Hat Developer Hub:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Open your web browser and navigate to your Red Hat Developer Hub instance URL.</p>
+</li>
+<li>
+<p>Log in using your provided credentials.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Navigate to the Create Component page:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>In the left-hand navigation pane, click on the <strong>Create</strong> link.</p>
+</li>
+<li>
+<p>You will see a list of available software templates.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Select a Template:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Find a simple template, for example, one named "Simple Node.js Starter App" or similar.</p>
+</li>
+<li>
+<p>Click on the template card to select it.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Fill out the Template Form:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>The template form will appear, prompting you for various details. Fill in the required fields:
+<strong>Name:</strong> Enter a unique name for your new component (e.g., <code>my-first-service</code>).
+<strong>Owner:</strong> Select an existing team or enter a new owner ID (e.g., <code>user:guest</code> or <code>team:my-team</code>).
+<strong>Repository URL:</strong> This is crucial. Provide the URL for your new Git repository. Ensure it&#8217;s a valid and accessible URL where the template output can be pushed.
+For example: <code><a href="https://github.com/your-username/my-first-service" class="bare">https://github.com/your-username/my-first-service</a></code> or <code><a href="https://gitlab.com/your-username/my-first-service" class="bare">https://gitlab.com/your-username/my-first-service</a></code>.
+[IMPORTANT]
+====
+Ensure the repository URL you provide points to a <strong>new, empty</strong> repository location or a location where the Scaffolder has permission to create one. If it points to an existing, non-empty repository, the template creation might fail.
+====
+<strong>Other fields:</strong> Fill in any other fields as required by the template (e.g., description, port number, technical owner).</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Review and Create:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>After filling in all the details, click the <strong>Next</strong> or <strong>Review</strong> button (the exact button name may vary depending on the template configuration).</p>
+</li>
+<li>
+<p>Review the summary of your choices. If everything looks correct, click <strong>Create</strong>.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Monitor the Scaffolding Process:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>The Red Hat Developer Hub will now start the scaffolding process. You will see a progress bar and a log of the actions being performed by the Scaffolder.</p>
+</li>
+<li>
+<p>Common actions include:</p>
+</li>
+<li>
+<p>Cloning the template source.</p>
+</li>
+<li>
+<p>Running a templating engine (e.g., Cookiecutter).</p>
+</li>
+<li>
+<p>Pushing the generated code to your specified Git repository.</p>
+</li>
+<li>
+<p>Registering the new component in the Software Catalog.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Verify Component Creation:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Once the scaffolding process completes successfully, you will see a success message.</p>
+</li>
+<li>
+<p>Click the <strong>View in Catalog</strong> button or navigate to the <strong>Catalog</strong> link in the left-hand navigation pane.</p>
+</li>
+<li>
+<p>Search for your newly created component (e.g., <code>my-first-service</code>). It should now be listed in the Software Catalog.</p>
+</li>
+<li>
+<p>Click on your component to view its details, including its entity file, links to the repository, and any CI/CD pipelines created.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Verify Git Repository:</strong></p>
+<div class="ulist">
+<ul>
+<li>
+<p>Navigate to the Git repository URL you provided during step 4.</p>
+</li>
+<li>
+<p>You should see the newly generated code, including the basic application structure and configuration files, committed to the repository.</p>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>You have successfully used a software template in Red Hat Developer Hub to create a new component. This hands-on experience demonstrates the efficiency and standardization that templates bring to the development workflow.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="software-templates.html">Software Templates</a></span>
+  <span class="next"><a href="template-registration.html">Template Registration</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

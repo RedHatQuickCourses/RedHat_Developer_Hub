@@ -1,0 +1,489 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Initial setup and component registration :: Introduction to Red Hat Developer Hub</title>
+    <link rel="prev" href="catalog-info-file.html">
+    <link rel="next" href="../templates/templates.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Introduction to Red Hat Developer Hub</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="RedHat_Developer_Hub" data-version="1.0.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Introduction to Red Hat Developer Hub</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../LABENV/index.html">Lab Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../internal-developer-platforms/internal-developer-platforms.html">Internal developer platforms</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../internal-developer-platforms/a-platform-for-developers.html">A platform for developers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../internal-developer-platforms/history.html">History</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../internal-developer-platforms/red-hat-developer-hub.html">Red Hat Developer Hub</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="software-catalog.html">Software Catalog</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="entities.html">Entities</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="catalog-info-file.html">catalog-info file</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="initial-setup-and-component-registration.html">Initial setup and component registration</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../templates/templates.html">Templates</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../templates/software-templates.html">Software Templates</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../templates/basics.html">Basics</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../templates/template-registration.html">Template Registration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../templates/template-structure.html">Template Structure</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Introduction to Red Hat Developer Hub</span>
+    <span class="version">1.0.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Introduction to Red Hat Developer Hub</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1.0.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Introduction to Red Hat Developer Hub</a></li>
+    <li><a href="software-catalog.html">Software Catalog</a></li>
+    <li><a href="initial-setup-and-component-registration.html">Initial setup and component registration</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Initial setup and component registration</h1>
+<h1 id="_initial_setup_and_component_registration" class="sect0"><a class="anchor" href="#_initial_setup_and_component_registration"></a>Initial Setup and Component Registration</h1>
+<div class="paragraph">
+<p>The Software Catalog is the central nervous system of an Internal Developer Platform, providing a single pane of glass for all your organization&#8217;s software components. Before you can harness its power, you need to perform an initial setup process to configure how components are discovered and then register individual components. This section guides you through preparing your environment and registering your first software entity.</p>
+</div>
+<div class="sect1">
+<h2 id="_preparing_for_component_registration"><a class="anchor" href="#_preparing_for_component_registration"></a>Preparing for Component Registration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Before you can register components into the Red Hat Developer Hub&#8217;s Software Catalog, ensure you have the following prerequisites in place:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Access to Red Hat Developer Hub:</strong> You need a running instance of Red Hat Developer Hub (or Backstage) and appropriate user permissions to access the "Register Existing Component" functionality.</p>
+</li>
+<li>
+<p><strong>Git Repository Access:</strong> Components are typically defined by <code>catalog-info.yaml</code> files stored in Git repositories (e.g., GitHub, GitLab, Bitbucket, Azure DevOps). You&#8217;ll need access to a repository where you can create and push files.</p>
+</li>
+<li>
+<p><strong>Basic YAML Knowledge:</strong> The <code>catalog-info.yaml</code> files are written in YAML. Familiarity with YAML syntax will be beneficial.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>The "initial setup" primarily involves understanding where the catalog finds its information and ensuring your component definitions are accessible to it. Red Hat Developer Hub works by "ingesting" <code>catalog-info.yaml</code> files from specified locations.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_understanding_the_catalog_info_yaml_file"><a class="anchor" href="#_understanding_the_catalog_info_yaml_file"></a>Understanding the catalog-info.yaml File</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>As covered previously, the <code>catalog-info.yaml</code> file is the cornerstone of component registration. It acts as a manifest, providing the Software Catalog with all the necessary metadata about a software entity.</p>
+</div>
+<div class="paragraph">
+<p>A typical <code>catalog-info.yaml</code> file includes:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>apiVersion</code>: Specifies the API version of the Backstage catalog schema. Common values are <code>backstage.io/v1alpha1</code>.</p>
+</li>
+<li>
+<p><code>kind</code>: Defines the type of entity being described (e.g., <code>Component</code>, <code>API</code>, <code>System</code>, <code>Group</code>, <code>User</code>, <code>Resource</code>).</p>
+</li>
+<li>
+<p><code>metadata</code>: Contains general information about the entity, such as:</p>
+</li>
+<li>
+<p><code>name</code>: A unique identifier for the entity within the catalog.</p>
+</li>
+<li>
+<p><code>description</code>: A brief summary of the entity.</p>
+</li>
+<li>
+<p><code>annotations</code>: Key-value pairs for additional metadata (e.g., links to external systems, ownership details).</p>
+</li>
+<li>
+<p><code>tags</code>: Keywords for categorization and filtering.</p>
+</li>
+<li>
+<p><code>spec</code>: Contains specific details relevant to the <code>kind</code> of entity. For a <code>Component</code>, this might include:</p>
+</li>
+<li>
+<p><code>type</code>: The classification of the component (e.g., <code>service</code>, <code>library</code>, <code>website</code>).</p>
+</li>
+<li>
+<p><code>lifecycle</code>: The component&#8217;s lifecycle stage (e.g., <code>experimental</code>, <code>production</code>, <code>deprecated</code>).</p>
+</li>
+<li>
+<p><code>owner</code>: The team or group responsible for the component.</p>
+</li>
+<li>
+<p><code>system</code>: The system this component belongs to (if applicable).</p>
+</li>
+<li>
+<p><code>dependsOn</code>: Other entities this component depends on.</p>
+</li>
+<li>
+<p><code>providesApi</code>: APIs exposed by this component.</p>
+</li>
+<li>
+<p><code>consumesApi</code>: APIs consumed by this component.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Example: A simple <code>catalog-info.yaml</code> for a frontend service</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: my-frontend-service
+  description: A sample React-based frontend service.
+  annotations:
+    github.com/project-slug: your-org/my-frontend-service
+    backstage.io/techdocs-ref: url:https://example.com/docs/my-frontend-service
+  tags:
+    - frontend
+    - react
+    - web
+spec:
+  type: service
+  lifecycle: production
+  owner: team-a
+  system: my-ecommerce-system
+  # Other properties like dependsOn, providesApi, consumesApi can be added here
+  # to define relationships with other catalog entities.</code></pre>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_hands_on_activity_registering_your_first_component"><a class="anchor" href="#_hands_on_activity_registering_your_first_component"></a>Hands-on Activity: Registering Your First Component</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>This activity guides you through the process of creating a <code>catalog-info.yaml</code> file in a Git repository and registering it with your Red Hat Developer Hub instance.</p>
+</div>
+<div class="paragraph">
+<div class="title">Objective</div>
+<p>Learn how to define a software component using <code>catalog-info.yaml</code> and register it into the Red Hat Developer Hub Software Catalog.</p>
+</div>
+<div class="ulist">
+<div class="title">Prerequisites</div>
+<ul>
+<li>
+<p>Access to a running Red Hat Developer Hub instance.</p>
+</li>
+<li>
+<p>A Git repository (e.g., on GitHub, GitLab, or a self-hosted Git server) where you have write access.</p>
+</li>
+<li>
+<p><code>git</code> command-line tool installed on your local machine.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<div class="title">Create a New Git Repository for your Component</div>
+<p>For this activity, we&#8217;ll create a simple, empty repository. In a real-world scenario, this would be the repository containing your actual service code.</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Navigate to your preferred Git hosting service (e.g., GitHub, GitLab) and create a new <strong>public</strong> repository.</p>
+<div class="ulist">
+<ul>
+<li>
+<p>Name it something descriptive, like <code>my-first-devhub-component</code>.</p>
+</li>
+<li>
+<p>Initialize it with a <code>README.md</code> if prompted.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Clone the repository to your local machine:
+<code><code>bash
+git clone <a href="https://github.com/your-org/my-first-devhub-component.git" class="bare">https://github.com/your-org/my-first-devhub-component.git</a>
+cd my-first-devhub-component
+</code></code>
+<strong>Replace <code><a href="https://github.com/your-org/my-first-devhub-component.git" class="bare">https://github.com/your-org/my-first-devhub-component.git</a></code> with the actual URL of your repository.</strong></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<div class="title">Define your Component with <code>catalog-info.yaml</code></div>
+<p>Now, you&#8217;ll create the <code>catalog-info.yaml</code> file that describes your component.</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Inside your <code>my-first-devhub-component</code> directory, create a new file named <code>catalog-info.yaml</code>.</p>
+</li>
+<li>
+<p>Paste the following content into the <code>catalog-info.yaml</code> file:
+```yaml
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: hello-devhub-world
+  description: A simple demonstration component for Red Hat Developer Hub.
+  annotations:
+    # Replace 'your-org' and 'my-first-devhub-component' with your actual repository path
+    github.com/project-slug: your-org/my-first-devhub-component
+    # Optional: Add a link to external documentation if you have it
+    # backstage.io/techdocs-ref: url:https://your-docs-site.com/hello-devhub-world
+  tags:</p>
+<div class="ulist">
+<ul>
+<li>
+<p>demo</p>
+</li>
+<li>
+<p>training</p>
+</li>
+<li>
+<p>getting-started
+spec:
+  type: service
+  lifecycle: experimental
+  owner: team-platform
+  system: training-demos
+<code>`</code></p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Important:</strong> Update <code>github.com/project-slug</code> annotation to reflect your actual GitHub organization/user and repository name. If you&#8217;re using GitLab, use <code>gitlab.com/project-slug: your-group/your-project</code>.</p>
+</li>
+<li>
+<p><code>owner</code> and <code>system</code> fields link to other entities in the catalog (groups and systems). For this exercise, <code>team-platform</code> and <code>training-demos</code> are placeholders; if these entities don&#8217;t exist in your catalog, they will appear as broken links initially but can be created later.</p>
+</li>
+</ul>
+</div>
+</li>
+</ul>
+</div>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<div class="title">Push the <code>catalog-info.yaml</code> to your Repository</div>
+<p>Commit and push the new file to your Git repository.</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Add the <code>catalog-info.yaml</code> file to your Git staging area:
+<code><code>bash
+git add catalog-info.yaml
+</code></code></p>
+</li>
+<li>
+<p>Commit the changes:
+<code><code>bash
+git commit -m "Add catalog-info.yaml for hello-devhub-world component"
+</code></code></p>
+</li>
+<li>
+<p>Push the changes to your remote repository:
+<code><code>bash
+git push origin main # Or 'master' depending on your branch name
+</code></code></p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<div class="title">Register the Component Location in Red Hat Developer Hub</div>
+<p>Now, tell Developer Hub where to find your component definition.</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Open your web browser and navigate to your Red Hat Developer Hub instance.</p>
+</li>
+<li>
+<p>In the Developer Hub interface, look for a navigation link labeled <strong>Register Existing Component</strong> or similar (often found under the <strong>Create</strong> menu or directly in the sidebar).</p>
+</li>
+<li>
+<p>You will be prompted to enter a URL. Provide the URL to your <code>catalog-info.yaml</code> file or the root of your Git repository.</p>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Option 1: Direct <code>catalog-info.yaml</code> URL (Recommended for single file)</strong>
+If your <code>catalog-info.yaml</code> is at the root of your <code>main</code> branch, the URL might look like:
+<code><a href="https://github.com/your-org/my-first-devhub-component/blob/main/catalog-info.yaml" class="bare">https://github.com/your-org/my-first-devhub-component/blob/main/catalog-info.yaml</a></code>
+<strong>Note:</strong> For some Git providers, you might need the "raw" file URL for direct ingestion. For GitHub, <code><a href="https://github.com/your-org/my-first-devhub-component/blob/main/catalog-info.yaml" class="bare">https://github.com/your-org/my-first-devhub-component/blob/main/catalog-info.yaml</a></code> often works. If not, try the raw content URL.</p>
+</li>
+<li>
+<p><strong>Option 2: Repository Root URL (for discovering multiple files)</strong>
+If you want the catalog to discover all <code>catalog-info.yaml</code> files within your repository (e.g., in subdirectories), provide the root URL of your repository and a glob pattern:
+<code><a href="https://github.com/your-org/my-first-devhub-component/blob/main/" class="bare">https://github.com/your-org/my-first-devhub-component/blob/main/</a><strong>-info.yaml</code>
+Or for all YAML files in the repo:
+<code><a href="https://github.com/your-org/my-first-devhub-component/blob/main/" class="bare">https://github.com/your-org/my-first-devhub-component/blob/main/</a></strong>*/<strong>.yaml</code>
+*For simplicity in this exercise, use Option 1 with the direct path to your <code>catalog-info.yaml</code> file.</strong></p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p>Click the <strong>Analyze</strong> or <strong>Register</strong> button. Developer Hub will fetch the <code>catalog-info.yaml</code> file, parse it, and display a summary of the entities it found.</p>
+</li>
+<li>
+<p>Confirm the registration. The catalog will then begin processing the component. This typically happens quickly.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<div class="title">Verify Component Registration</div>
+<p>Confirm that your new component is visible in the Software Catalog.</p>
+</div>
+<div class="olist loweralpha">
+<ol class="loweralpha" type="a">
+<li>
+<p>Navigate to the <strong>Software Catalog</strong> page in Red Hat Developer Hub.</p>
+</li>
+<li>
+<p>Use the search bar or filters to find your newly registered component, <code>hello-devhub-world</code>.</p>
+</li>
+<li>
+<p>Click on the component&#8217;s entry to view its detailed page. You should see the description, tags, owner, and system information you defined in the <code>catalog-info.yaml</code>.</p>
+</li>
+<li>
+<p>Observe the <strong>Owner</strong> and <strong>System</strong> links. If <code>team-platform</code> and <code>training-demos</code> do not yet exist as entities in your catalog, these links might appear broken or lead to empty pages. This is expected and shows how relationships are established, even if the target entity isn&#8217;t fully defined yet.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Congratulations! You have successfully performed the initial setup for component registration and added your first component to the Red Hat Developer Hub Software Catalog. This fundamental process is key to populating your platform with your organization&#8217;s software landscape.</p>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="catalog-info-file.html">catalog-info file</a></span>
+  <span class="next"><a href="../templates/templates.html">Templates</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>

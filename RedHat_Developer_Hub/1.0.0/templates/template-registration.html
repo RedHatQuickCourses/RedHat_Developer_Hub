@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Template Registration :: Introduction to Red Hat Developer Hub</title>
+    <link rel="prev" href="basics.html">
+    <link rel="next" href="template-structure.html">
+    <meta name="generator" content="Antora 3.1.3">
+    <link rel="stylesheet" href="../../../_/css/site.css">
+    <script>var uiRootPath = '../../../_'</script>
+  </head>
+  <body class="article">
+<header class="header">
+  <nav class="navbar">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="https://www.redhat.com" target="_blank"><img src="../../../_/img/redhat-logo.png" height="40px" alt="Red Hat"></a>
+      <a class="navbar-item" style="font-size: 24px; color: white" href="../../..">Introduction to Red Hat Developer Hub</a>
+      <button class="navbar-burger" data-target="topbar-nav">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+    </div>
+    <div id="topbar-nav" class="navbar-menu">
+      <div class="navbar-end">
+        <a class="navbar-item" href="https://github.com/RedHatQuickCourses/REPLACEREPONAME/issues" target="_blank">Report Issues</a>
+      </div>
+    </div>
+  </nav>
+</header>
+<div class="body">
+<div class="nav-container" data-component="RedHat_Developer_Hub" data-version="1.0.0">
+  <aside class="nav">
+    <div class="panels">
+<div class="nav-panel-menu is-active" data-panel="menu">
+  <nav class="nav-menu">
+    <h3 class="title"><a href="../index.html">Introduction to Red Hat Developer Hub</a></h3>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../index.html">Home</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../LABENV/index.html">Lab Environment</a>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../internal-developer-platforms/internal-developer-platforms.html">Internal developer platforms</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../internal-developer-platforms/a-platform-for-developers.html">A platform for developers</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../internal-developer-platforms/history.html">History</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../internal-developer-platforms/red-hat-developer-hub.html">Red Hat Developer Hub</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="../software-catalog/software-catalog.html">Software Catalog</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../software-catalog/overview.html">Overview</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../software-catalog/entities.html">Entities</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../software-catalog/catalog-info-file.html">catalog-info file</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="../software-catalog/initial-setup-and-component-registration.html">Initial setup and component registration</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <button class="nav-item-toggle"></button>
+    <a class="nav-link" href="templates.html">Templates</a>
+<ul class="nav-list">
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="software-templates.html">Software Templates</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="basics.html">Basics</a>
+  </li>
+  <li class="nav-item is-current-page" data-depth="2">
+    <a class="nav-link" href="template-registration.html">Template Registration</a>
+  </li>
+  <li class="nav-item" data-depth="2">
+    <a class="nav-link" href="template-structure.html">Template Structure</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </li>
+  <li class="nav-item" data-depth="0">
+<ul class="nav-list">
+  <li class="nav-item" data-depth="1">
+    <a class="nav-link" href="../appendix/appendix.html">Appendix</a>
+  </li>
+</ul>
+  </li>
+</ul>
+  </nav>
+</div>
+<div class="nav-panel-explore" data-panel="explore">
+  <div class="context">
+    <span class="title">Introduction to Red Hat Developer Hub</span>
+    <span class="version">1.0.0</span>
+  </div>
+  <ul class="components">
+    <li class="component is-current">
+      <a class="title" href="../index.html">Introduction to Red Hat Developer Hub</a>
+      <ul class="versions">
+        <li class="version is-current is-latest">
+          <a href="../index.html">1.0.0</a>
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+    </div>
+  </aside>
+</div>
+<main class="article">
+<div class="toolbar" role="navigation">
+<button class="nav-toggle"></button>
+  <a href="../index.html" class="home-link"></a>
+<nav class="breadcrumbs" aria-label="breadcrumbs">
+  <ul>
+    <li><a href="../index.html">Introduction to Red Hat Developer Hub</a></li>
+    <li><a href="templates.html">Templates</a></li>
+    <li><a href="template-registration.html">Template Registration</a></li>
+  </ul>
+</nav>
+</div>
+  <div class="content">
+<aside class="toc sidebar" data-title="Contents" data-levels="2">
+  <div class="toc-menu"></div>
+</aside>
+<article class="doc">
+<h1 class="page">Template Registration</h1>
+<h1 id="_template_registration" class="sect0"><a class="anchor" href="#_template_registration"></a>Template Registration</h1>
+<div class="paragraph">
+<p>This section delves into the process of registering software templates within Red Hat Developer Hub. Template registration is a crucial step that makes your predefined project structures and boilerplate code discoverable and usable by other developers through the Developer Hub&#8217;s user interface.</p>
+</div>
+<div class="sect1">
+<h2 id="_what_is_template_registration"><a class="anchor" href="#_what_is_template_registration"></a>What is Template Registration?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Template registration is the mechanism by which Red Hat Developer Hub (RHDH) learns about the existence and location of your software templates. Similar to how individual software components are registered in the Software Catalog, templates also need to be cataloged. Once registered, a template becomes an accessible option for developers when they want to create new projects or services using the "Create" functionality in RHDH.</p>
+</div>
+<div class="paragraph">
+<p>The core idea is to treat templates as a specific <code>kind</code> of entity within the Software Catalog. By defining them with a <code>catalog-info.yaml</code> file, you provide RHDH with all the necessary metadata to display, categorize, and execute the template.</p>
+</div>
+<div class="sect2">
+<h3 id="_the_role_of_catalog_info_yaml_for_templates"><a class="anchor" href="#_the_role_of_catalog_info_yaml_for_templates"></a>The Role of <code>catalog-info.yaml</code> for Templates</h3>
+<div class="paragraph">
+<p>Just as with <code>Component</code> entities, a <code>catalog-info.yaml</code> file is the cornerstone of template registration. This YAML file describes the template to the Developer Hub&#8217;s catalog service. When the catalog ingests this file, it identifies it as a <code>Template</code> kind and adds it to its internal index.</p>
+</div>
+<div class="paragraph">
+<p>Key attributes you&#8217;ll find in a template&#8217;s <code>catalog-info.yaml</code>:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>apiVersion</code>: Specifies the API version, typically <code>backstage.io/v1alpha1</code>.</p>
+</li>
+<li>
+<p><code>kind</code>: Must be <code>Template</code> for a software template.</p>
+</li>
+<li>
+<p><code>metadata</code>:</p>
+</li>
+<li>
+<p><code>name</code>: A unique identifier for the template.</p>
+</li>
+<li>
+<p><code>title</code>: A user-friendly name displayed in the UI.</p>
+</li>
+<li>
+<p><code>description</code>: A brief explanation of what the template creates.</p>
+</li>
+<li>
+<p><code>tags</code>: Keywords for filtering and searching.</p>
+</li>
+<li>
+<p><code>annotations</code>: Additional metadata, such as <code>backstage.io/techdocs-ref</code> if documentation exists.</p>
+</li>
+<li>
+<p><code>spec</code>: Defines the template&#8217;s characteristics and where to find its actual definition.</p>
+</li>
+<li>
+<p><code>type</code>: A logical grouping for templates (e.g., <code>service</code>, <code>website</code>, <code>library</code>).</p>
+</li>
+<li>
+<p><code>lifecycle</code>: Indicates the maturity level (e.g., <code>experimental</code>, <code>production</code>, <code>deprecated</code>).</p>
+</li>
+<li>
+<p><code>owner</code>: The team or individual responsible for maintaining the template.</p>
+</li>
+<li>
+<p><code>template</code>: This nested object is crucial:</p>
+</li>
+<li>
+<p><code>repoUrl</code>: The URL of the Git repository containing the template source.</p>
+</li>
+<li>
+<p><code>path</code>: The path within the repository to the directory containing the <code>template.yaml</code> file. This is often <code>.</code> if <code>template.yaml</code> is at the root of the template&#8217;s directory.</p>
+</li>
+<li>
+<p><code>supports</code>: (Optional) Specifies which scm provider is supported.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="title">Example <code>catalog-info.yaml</code> for a Template</div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: backstage.io/v1alpha1
+kind: Template
+metadata:
+  name: spring-boot-microservice
+  title: Spring Boot Microservice Template
+  description: Creates a basic Spring Boot microservice with a REST endpoint.
+  tags:
+    - java
+    - spring-boot
+    - microservice
+    - backend
+  annotations:
+    backstage.io/techdocs-ref: url:https://example.com/docs/spring-boot-template
+spec:
+  type: service
+  lifecycle: experimental
+  owner: team-platform
+  template:
+    repoUrl: https://github.com/my-org/spring-boot-template-repo
+    path: . # Assumes template.yaml is at the root of the template's directory</code></pre>
+</div>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+The <code>path</code> attribute under <code>spec.template</code> refers to the directory <strong>containing</strong> the <code>template.yaml</code> file, not the <code>template.yaml</code> file itself. If your <code>template.yaml</code> is directly in the Git repository&#8217;s root, <code>path</code> should be <code>.</code>. If it&#8217;s in a subdirectory like <code>templates/spring-boot</code>, then <code>path</code> would be <code>templates/spring-boot</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_where_to_store_template_catalog_info_yaml"><a class="anchor" href="#_where_to_store_template_catalog_info_yaml"></a>Where to Store Template <code>catalog-info.yaml</code></h3>
+<div class="paragraph">
+<p>The <code>catalog-info.yaml</code> for a template is typically stored in the same Git repository where the template&#8217;s actual definition (<code>template.yaml</code> and associated files) resides. It should be placed in the root of the directory that defines the template. This co-location simplifies management and ensures that the template&#8217;s metadata and its source code are versioned together.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_initial_setup_and_template_registration"><a class="anchor" href="#_initial_setup_and_template_registration"></a>Initial Setup and Template Registration</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>To register templates, you first need to configure the Red Hat Developer Hub&#8217;s catalog to discover them. This is done by adding a "location" to the catalog configuration that points to your Git repositories or specific files where <code>catalog-info.yaml</code> files for templates are stored.</p>
+</div>
+<div class="paragraph">
+<p>This process is identical to registering regular software components, but the <code>kind: Template</code> in the <code>catalog-info.yaml</code> is what distinguishes it.</p>
+</div>
+<div class="sect2">
+<h3 id="_hands_on_activity_registering_a_software_template"><a class="anchor" href="#_hands_on_activity_registering_a_software_template"></a>Hands-on Activity: Registering a Software Template</h3>
+<div class="paragraph">
+<p>In this activity, you will register a new software template with your Red Hat Developer Hub instance. We&#8217;ll assume you have an existing Git repository with a template structure. If not, you can create a simple one or use a placeholder.</p>
+</div>
+<div class="sect3">
+<h4 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h4>
+<div class="ulist">
+<ul>
+<li>
+<p>Access to a running Red Hat Developer Hub instance.</p>
+</li>
+<li>
+<p>A Git repository (e.g., GitHub, GitLab, Bitbucket) where your template files are hosted.</p>
+</li>
+<li>
+<p>Admin access or permissions to configure RHDH catalog ingestion.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect3">
+<h4 id="_scenario"><a class="anchor" href="#_scenario"></a>Scenario</h4>
+<div class="paragraph">
+<p>You have a simple "Hello World" template that creates a basic <code>index.html</code> file. The template is located in a Git repository at <code><a href="https://github.com/your-org/my-templates" class="bare">https://github.com/your-org/my-templates</a></code>. Inside this repository, there&#8217;s a directory named <code>html-template</code> which contains the <code>template.yaml</code> and a <code>catalog-info.yaml</code> for the template.</p>
+</div>
+<div class="paragraph">
+<p><strong>1. Prepare Your Git Repository (if you don&#8217;t have one)</strong></p>
+</div>
+<div class="paragraph">
+<p>If you don&#8217;t have an existing template repository, create a new public GitHub repository (e.g., <code>my-templates</code>). Inside it, create the following directory structure and files:</p>
+</div>
+<div class="listingblock">
+<div class="title">File: <code>my-templates/html-template/catalog-info.yaml</code></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: backstage.io/v1alpha1
+kind: Template
+metadata:
+  name: basic-html-template
+  title: Basic HTML Website Template
+  description: Creates a simple HTML page with a 'Hello World' message.
+  tags:
+    - web
+    - frontend
+    - html
+  annotations:
+    backstage.io/techdocs-ref: url:https://example.com/docs/basic-html
+spec:
+  type: website
+  lifecycle: experimental
+  owner: team-frontend
+  template:
+    repoUrl: https://github.com/your-org/my-templates
+    path: html-template</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">File: <code>my-templates/html-template/template.yaml</code></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: backstage.io/v1alpha1
+kind: Template
+metadata:
+  name: basic-html-template
+  title: Basic HTML Website Template
+spec:
+  owner: team-frontend
+  type: website
+  parameters:
+    - id: name
+      title: Project Name
+      required: true
+      type: string
+      ui:autofocus: true
+      ui:options:
+        rows: 5
+    - id: description
+      title: Project Description
+      required: false
+      type: string
+      ui:options:
+        rows: 5
+  steps:
+    - id: fetch-base
+      name: Fetch Base HTML
+      action: fetch:template
+      input:
+        url: ./content
+        copyWithoutRender:
+          - .github/workflows/*
+    - id: publish
+      name: Publish
+      action: publish:github
+      input:
+        allowedHosts: ['github.com']
+        description: ${{ parameters.description }}
+        repoUrl: github.com?owner=your-org&amp;repo=${{ parameters.name }}
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: '/catalog-info.yaml'
+
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps.register.output.entityRef }}</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">File: <code>my-templates/html-template/content/index.html.hbs</code></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-html hljs" data-lang="html">&lt;!DOCTYPE html&gt;
+&lt;html lang="en"&gt;
+&lt;head&gt;
+    &lt;meta charset="UTF-8"&gt;
+    &lt;meta name="viewport" content="width=device-width, initial-scale=1.0"&gt;
+    &lt;title&gt;{{ name }}&lt;/title&gt;
+&lt;/head&gt;
+&lt;body&gt;
+    &lt;h1&gt;Hello from {{ name }}!&lt;/h1&gt;
+    &lt;p&gt;This is a basic HTML page generated by the template.&lt;/p&gt;
+    {{#if description}}
+    &lt;p&gt;Description: {{ description }}&lt;/p&gt;
+    {{/if}}
+&lt;/body&gt;
+&lt;/html&gt;</code></pre>
+</div>
+</div>
+<div class="listingblock">
+<div class="title">File: <code>my-templates/html-template/content/catalog-info.yaml</code></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ${{ parameters.name | dump }}
+  description: ${{ parameters.description | dump }}
+  annotations:
+    github.com/project-slug: your-org/${{ parameters.name }}
+spec:
+  type: website
+  lifecycle: experimental
+  owner: team-frontend
+  system: default</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p><strong>Make sure to replace <code>your-org</code> with your actual GitHub username or organization name in all the files.</strong></p>
+</div>
+<div class="paragraph">
+<p><strong>2. Add the Template Location to Red Hat Developer Hub</strong></p>
+</div>
+<div class="paragraph">
+<p>You need to tell RHDH where to find this <code>catalog-info.yaml</code> file.</p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Navigate to your Red Hat Developer Hub instance.</p>
+</li>
+<li>
+<p>Access the <strong>Admin Settings</strong> (usually via the user icon or a specific "Settings" link).</p>
+</li>
+<li>
+<p>Go to the <strong>Catalog</strong> section, then select <strong>Locations</strong>.</p>
+</li>
+<li>
+<p>Click the <strong>+ Add</strong> button or equivalent to add a new ingestion location.</p>
+</li>
+<li>
+<p>In the <code>Target</code> field, specify the URL to your template&#8217;s <code>catalog-info.yaml</code> file in the Git repository. For example:
+<code>url:https://github.com/your-org/my-templates/blob/main/html-template/catalog-info.yaml</code>
+Alternatively, to ingest all <code>catalog-info.yaml</code> files within the <code>html-template</code> directory (and its subdirectories) recursively:
+<code>url:https://github.com/your-org/my-templates/tree/main/html-template</code>
+And set the <code>Type</code> to <code>github-discovery</code> (or the appropriate type for your SCM).</p>
+</li>
+<li>
+<p>Click <strong>Save</strong>.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The <code>catalog-info.yaml</code> in <code>my-templates/html-template/catalog-info.yaml</code> defines the <strong>template entity itself</strong>. The <code>catalog-info.yaml</code> in <code>my-templates/html-template/content/catalog-info.yaml</code> defines the <strong>component entity that will be created by the template</strong>. This distinction is important for understanding what gets registered where.
+</td>
+</tr>
+</table>
+</div>
+<div class="paragraph">
+<p><strong>3. Verify Template Registration</strong></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>After adding the location, wait a few moments for the catalog to ingest the new entry. You can monitor the "Ingestion Logs" in the Admin Settings for any errors.</p>
+</li>
+<li>
+<p>Navigate to the <strong>Create</strong> tab in Red Hat Developer Hub (usually found in the left-hand navigation bar).</p>
+</li>
+<li>
+<p>You should now see "Basic HTML Website Template" listed among the available templates.</p>
+</li>
+<li>
+<p>Click on the template to view its details, including the description, owner, and tags you specified in <code>catalog-info.yaml</code>.</p>
+</li>
+</ol>
+</div>
+<div class="paragraph">
+<p>Congratulations! You have successfully registered a software template in Red Hat Developer Hub, making it available for developers to use.</p>
+</div>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_expert_insights_and_troubleshooting"><a class="anchor" href="#_expert_insights_and_troubleshooting"></a>Expert Insights and Troubleshooting</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>YAML Syntax Errors:</strong> The most common issue is incorrect YAML syntax in <code>catalog-info.yaml</code> or <code>template.yaml</code>. Use a YAML linter to validate your files.</p>
+</li>
+<li>
+<p><strong>Incorrect <code>kind</code>:</strong> Ensure <code>kind: Template</code> is correctly specified in the template&#8217;s <code>catalog-info.yaml</code>.</p>
+</li>
+<li>
+<p><strong>Incorrect <code>repoUrl</code> or <code>path</code>:</strong> Double-check that <code>spec.template.repoUrl</code> points to the correct Git repository and <code>spec.template.path</code> accurately specifies the <strong>directory</strong> containing <code>template.yaml</code> within that repository. Even a trailing slash can cause issues.</p>
+</li>
+<li>
+<p><strong>Catalog Ingestion Issues:</strong> If the template doesn&#8217;t appear, check the RHDH catalog ingestion logs (usually in the Admin section) for errors related to the URL you provided. Network connectivity issues, incorrect Git host configuration, or authentication problems can prevent ingestion.</p>
+</li>
+<li>
+<p><strong>Template Not Showing in UI:</strong> If the template is registered but not visible in the "Create" tab, ensure the RHDH frontend plugin for the create flow is correctly configured and has access to the catalog.</p>
+</li>
+<li>
+<p><strong>Permissions:</strong> Ensure that the RHDH catalog service has the necessary permissions to access your Git repository (e.g., a service account token with read access).</p>
+</li>
+<li>
+<p><strong>Template Content Validation:</strong> Beyond registration, the <code>template.yaml</code> itself must be valid for the template to function correctly when executed. Errors here will manifest during the template execution phase rather than registration.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+<nav class="pagination">
+  <span class="prev"><a href="basics.html">Basics</a></span>
+  <span class="next"><a href="template-structure.html">Template Structure</a></span>
+</nav>
+</article>
+  </div>
+</main>
+</div>
+<footer class="footer">
+  <img src="../../../_/img/rhl-logo-red.png" height="40px" alt="Red Hat"  href="https://redhat.com" >
+</footer><script id="site-script" src="../../../_/js/site.js" data-ui-root-path="../../../_"></script>
+<script async src="../../../_/js/vendor/highlight.js"></script>
+  </body>
+</html>
