@@ -1,6 +1,6 @@
 #  Software Templates
 
-```asciidoc
+
 = Software Templates
 :navtitle: Software Templates
 :page-aliases: templates:index.adoc
@@ -250,4 +250,3 @@ Understanding the structure of a template is crucial for both creating new templ
     <4> The `catalog-info.yaml` for the *newly created component*, registering it into the Software Catalog.
 
 By understanding these structural elements, you can effectively design and implement powerful software templates that automate and standardize your development workflows within Red Hat Developer Hub.
-```

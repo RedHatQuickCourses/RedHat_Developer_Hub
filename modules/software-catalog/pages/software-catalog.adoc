@@ -1,7 +1,10 @@
 #  Software Catalog
 
 [NOTE]
-This content is under development.
+Organizations can customize the Software Catalog and most of Developer Hub. This allows
+you to define what types of services or components should be included, how information is
+structured, and what access rules regulate who can see or modify components and sections
+of the portal.
 ==== Software Catalog
 
 The Software Catalog serves as a central registry for all software components, services, and resources within an organization. It provides a unified view and discoverability for developers.

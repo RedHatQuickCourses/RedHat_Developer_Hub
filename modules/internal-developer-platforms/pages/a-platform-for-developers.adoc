@@ -1,8 +1,6 @@
 #  A platform for developers
 
-To ensure the most effective learning experience, this content is structured using Antora AsciiDoc format, combining detailed technical explanations with practical hands-on activities where applicable.
-
-```asciidoc
+asciidoc
 [[a-platform-for-developers]]
 = A platform for developers
 
@@ -81,4 +79,3 @@ Think about your past or current experiences developing software in a team or or
 
 **Expected Outcome**: You should begin to appreciate the real-world value proposition of an internal developer platform by connecting its core features to common developer struggles. This foundational understanding will be key as we delve deeper into specific features of Red Hat Developer Hub.
 ====
-```

@@ -2,7 +2,7 @@
 
 Here's the detailed educational content for "Red Hat Developer Hub" in Antora AsciiDoc format, incorporating technical explanations and a hands-on activity.
 
-```asciidoc
+asciidoc
 [[red-hat-developer-hub]]
 === Red Hat Developer Hub
 
@@ -99,4 +99,3 @@ This activity aims to familiarize you with the primary interface and key areas o
    *   What are the main benefits you can immediately perceive for someone trying to find an existing service or start a new project?
 
 By completing this exploration, you should have a foundational understanding of how Red Hat Developer Hub acts as a central hub for development activities, making discovery, creation, and management of software components more efficient.
-```
