@@ -1,0 +1,5 @@
+* xref:templates.adoc[]
+** xref:software-templates.adoc[]
+** xref:basics.adoc[]
+** xref:template-registration.adoc[]
+** xref:template-structure.adoc[]

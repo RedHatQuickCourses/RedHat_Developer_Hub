@@ -1,0 +1,6 @@
+#  Internal developer platforms
+
+An Internal Developer Platform (IDP) is a self-service platform built by an organization *for* its developers.
+
+*   **Purpose:** It consolidates development tools, services, and infrastructure into a unified experience, abstracting complexities.
+*   **Goal:** To enhance developer productivity, standardize workflows, and accelerate software delivery by providing a paved path for development.

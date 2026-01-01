@@ -1,0 +1,253 @@
+#  Software Templates
+
+```asciidoc
+= Software Templates
+:navtitle: Software Templates
+:page-aliases: templates:index.adoc
+
+An internal developer platform (IDP), such as Red Hat Developer Hub, aims to streamline the developer experience by providing a centralized portal and tools that simplify complex operations. One of the most powerful features enabling this streamlined experience is *Software Templates*.
+
+== Software Templates Overview
+
+Imagine a scenario where every new project, microservice, or component starts from scratch, requiring developers to manually set up project structures, boilerplate code, CI/CD pipelines, and configuration files. This process is not only time-consuming but also prone to inconsistencies and errors, leading to "snowflake" projects that are hard to maintain and scale.
+
+Software Templates address these challenges head-on. They provide a standardized, opinionated, and automated way to bootstrap new software components, ensuring consistency, accelerating development, and embedding best practices from day one.
+
+=== Basics of Software Templates
+
+At its core, a software template is a predefined set of files, directories, and configurations that represent a typical starting point for a new software component. However, it's much more than just a `git clone` of a boilerplate repository. Templates in Red Hat Developer Hub (built on Backstage) are dynamic and interactive.
+
+Here's how they work and their key benefits:
+
+*   **Standardization**: Templates enforce architectural patterns, technology stacks, and organizational best practices across all new projects. This reduces technical debt and simplifies maintenance.
+*   **Automation**: They automate the repetitive setup tasks, such as generating code, configuring build systems, setting up CI/CD pipelines (e.g., Tekton, Argo CD), and integrating with other developer tools.
+*   **Self-Service**: Developers can independently create new components using a user-friendly wizard provided by the Developer Hub, reducing reliance on ops teams and accelerating time-to-market.
+*   **Parameterization**: Templates are not static. They can be parameterized, allowing developers to input specific details (e.g., component name, owner, repository URL, specific libraries) through a form. These inputs are then used to dynamically generate the new project.
+*   **Extensibility**: Templates can be designed to include various "actions" that are executed after the initial project scaffolding. These actions can provision infrastructure, register the component in the Software Catalog, push code to Git, or trigger external services.
+
+By leveraging software templates, organizations can foster a culture of consistency, enable developers to focus on business logic rather than boilerplate, and accelerate the adoption of new technologies and practices.
+
+=== Template Registration
+
+For a software template to be discoverable and usable within Red Hat Developer Hub, it must first be registered with the platform's Software Catalog. Registration typically involves creating a `catalog-info.yaml` file that describes the template itself, pointing to its definition and structure.
+
+A template definition is usually a YAML file (e.g., `template.yaml`) that lives in a Git repository. This file defines the template's parameters, steps, and actions.
+
+==== Hands-on Activity: Registering a Simple Template
+
+Let's walk through a conceptual example of registering a simple template.
+
+**Objective:** Register a template that creates a basic "hello-world" service.
+
+**Prerequisites:**
+*   Access to a Git repository (e.g., GitHub, GitLab) where you can store your template files.
+*   Access to a Red Hat Developer Hub instance with administrative privileges or permissions to register new catalog entities.
+
+**Steps:**
+
+.  **Create your Template Definition:**
+    First, you need to define your template. This definition includes metadata, parameters that users will provide, and the steps to generate the new component.
+
+    Create a file named `template.yaml` in your Git repository (e.g., `templates/java-hello-world/template.yaml`).
+
+    [source,yaml]
+    ----
+    apiVersion: scaffolder.backstage.io/v1beta3
+    kind: Template
+    metadata:
+      name: java-hello-world-template
+      title: Basic Java Hello World Service
+      description: Creates a simple Java Spring Boot "Hello World" service.
+      tags:
+        - java
+        - spring-boot
+        - microservice
+        - web
+    spec:
+      owner: user:guest
+      type: service
+      parameters:
+        - title: Component Information
+          properties:
+            name:
+              title: Component Name
+              type: string
+              description: Unique name of the new service.
+              ui:autofocus: true
+              ui:options:
+                rows: 5
+            description:
+              title: Description
+              type: string
+              description: A brief description of the service.
+            owner:
+              title: Owner
+              type: string
+              description: Owner of the component (e.g., user:default/john-doe or group:default/squad-a).
+              ui:field: OwnerPicker
+              ui:options:
+                allowedKinds: [ "Group", "User" ]
+        - title: Repository Information
+          properties:
+            repoUrl:
+              title: Repository Location
+              type: string
+              ui:field: RepoUrlPicker
+              ui:options:
+                allowedHosts:
+                  - github.com
+                  - gitlab.com
+      steps:
+        - id: fetch-base
+          name: Fetch Base Skeleton
+          action: fetch:template
+          input:
+            url: ./skeleton # <1>
+            targetPath: ./
+        - id: publish
+          name: Publish to Git
+          action: publish:github
+          input:
+            allowedHosts: ['github.com']
+            repoUrl: ${{ parameters.repoUrl }}
+            defaultBranch: main
+            description: ${{ parameters.description }}
+            topics:
+              - ${{ parameters.name }}
+              - backstage-generated
+        - id: register
+          name: Register Component
+          action: catalog:register
+          input:
+            catalogInfoPath: '/catalog-info.yaml' # <2>
+            repoContentsUrl: ${{ steps['publish'].output.repoContentsUrl }}
+      output:
+        repoUrl: ${{ steps['publish'].output.repoUrl }}
+        catalogInfoUrl: ${{ steps['register'].output.entityRef }}
+    ----
+    <1> This `skeleton` directory will contain the actual boilerplate files for your new project.
+    <2> This path refers to the `catalog-info.yaml` *within the generated project*, not the template itself.
+
+.  **Create the Template Skeleton:**
+    In the same directory as your `template.yaml`, create a subdirectory named `skeleton`. This directory will contain the files that are copied and processed when the template is used.
+
+    Inside `skeleton`, create a file named `catalog-info.yaml` (for the *generated component*):
+    [source,yaml]
+    ----
+    apiVersion: backstage.io/v1beta1
+    kind: Component
+    metadata:
+      name: ${{ parameters.name | dump }}
+      description: ${{ parameters.description | dump }}
+      annotations:
+        github.com/project-slug: ${{ parameters.repoUrl | parseRepoUrl | pick 'owner' }}/${{ parameters.repoUrl | parseRepoUrl | pick 'repo' }}
+    spec:
+      type: service
+      lifecycle: experimental
+      owner: ${{ parameters.owner | dump }}
+      system: example-system
+      providesApis:
+        - hello-world-api
+    ----
+
+    Also in `skeleton`, create a file named `README.md`:
+    [source,markdown]
+    ----
+    # ${{ parameters.name }}
+
+    This is a basic "Hello World" service generated by the Red Hat Developer Hub.
+
+    ## Description
+    ${{ parameters.description }}
+
+    ## Getting Started
+
+    To run this service locally, follow these steps:
+
+    ... (add your specific instructions here for a Java service)
+    ----
+
+    And a placeholder for your actual code, e.g., `src/main/java/com/example/Application.java` (content omitted for brevity).
+
+.  **Register the Template in Red Hat Developer Hub:**
+    Now that your template definition (`template.yaml`) and its skeleton are in a Git repository, you need to tell Developer Hub where to find this template.
+
+    *   Navigate to your Red Hat Developer Hub instance.
+    *   Go to the "Create" section or the "Settings" / "Admin" area (depending on your Developer Hub configuration).
+    *   Look for an option to "Register Existing Component" or similar.
+    *   Provide the URL to your `template.yaml` file in the Git repository. For example:
+        `https://github.com/your-org/your-templates-repo/blob/main/templates/java-hello-world/template.yaml`
+
+    Once registered, the Developer Hub will process this `catalog-info.yaml` (which describes the template itself) and make your "Basic Java Hello World Service" template available in the "Create" wizard.
+
+This hands-on activity demonstrates the basic flow: define the template, prepare its skeleton, and then register it with the Developer Hub so developers can start using it.
+
+=== Template Structure
+
+Understanding the structure of a template is crucial for both creating new templates and maintaining existing ones. A typical Red Hat Developer Hub template consists of several key parts defined within its `template.yaml` file:
+
+.  **`apiVersion` and `kind`**:
+    Standard Kubernetes-style API version and resource kind, indicating that this is a Backstage Scaffolder `Template`.
+    [source,yaml]
+    ----
+    apiVersion: scaffolder.backstage.io/v1beta3
+    kind: Template
+    ----
+
+.  **`metadata`**:
+    Contains identifying information about the template, such as `name`, `title`, `description`, and `tags`. These are displayed in the Developer Hub UI when browsing available templates.
+    [source,yaml]
+    ----
+    metadata:
+      name: java-hello-world-template
+      title: Basic Java Hello World Service
+      description: Creates a simple Java Spring Boot "Hello World" service.
+      tags:
+        - java
+        - spring-boot
+    ----
+
+.  **`spec`**:
+    This is the core of the template definition, containing details about the template's behavior and lifecycle.
+    [source,yaml]
+    ----
+    spec:
+      owner: user:guest # <1>
+      type: service     # <2>
+      parameters:       # <3>
+        # ... parameter definitions ...
+      steps:            # <4>
+        # ... step definitions ...
+      output:           # <5>
+        # ... output definitions ...
+    ----
+    <1> `owner`: Specifies the owner of the template, typically a group or user.
+    <2> `type`: Describes the type of component this template generates (e.g., `service`, `library`, `website`).
+    <3> `parameters`: This section defines the input fields that the user will see in the template wizard. Each parameter has a `title`, `type` (e.g., `string`, `boolean`), `description`, and can include `ui:options` for richer UI components like `OwnerPicker` or `RepoUrlPicker`.
+    <4> `steps`: An ordered list of actions the template will perform. Each step has an `id`, `name`, `action`, and `input`. Actions are predefined functions provided by the scaffolder, such as `fetch:template` (to fetch the skeleton), `publish:github` (to publish to GitHub), or `catalog:register` (to register the new component in the Software Catalog).
+    <5> `output`: Defines what information is returned by the template after successful execution, typically the URL to the newly created repository or the registered component's entity reference.
+
+.  **`skeleton` Directory**:
+    While not part of the `template.yaml` itself, a crucial part of the template structure is the `skeleton` directory (or whatever path is specified in `fetch:template` action's `url` input). This directory contains the raw files and directories that form the initial boilerplate for the new project. These files often include placeholders (e.g., `${{ parameters.name }}`) that are dynamically replaced with the user's input during the scaffolding process using the powerful Jinja-like templating engine.
+
+    Example `skeleton` content:
+    [source,text]
+    ----
+    skeleton/
+    ├── src/
+    │   └── main/
+    │       └── java/
+    │           └── com/
+    │               └── example/
+    │                   └── Application.java # <1>
+    ├── pom.xml # <2>
+    ├── README.md # <3>
+    └── catalog-info.yaml # <4>
+    ----
+    <1> Example application code.
+    <2> Project build file.
+    <3> Project README file, often templated with user input.
+    <4> The `catalog-info.yaml` for the *newly created component*, registering it into the Software Catalog.
+
+By understanding these structural elements, you can effectively design and implement powerful software templates that automate and standardize your development workflows within Red Hat Developer Hub.
+```

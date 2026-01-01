@@ -1,0 +1,12 @@
+#  Templates
+
+=== Templates
+
+Software Templates provide standardized blueprints for creating new software components or projects, streamlining development and ensuring consistency.
+
+Key aspects include:
+
+*   **Software Templates**: Pre-configured project scaffolds that automate the creation of new services, applications, or components within a developer platform.
+*   **Basics**: Define the initial project structure, required files, dependencies, and default configurations, accelerating project startup.
+*   **Template Registration**: The process of adding a new template to the platform's catalog, making it discoverable and usable by developers.
+*   **Template Structure**: Refers to the organization of files, folders, and templating logic within a template, including placeholders for user-defined values during generation.

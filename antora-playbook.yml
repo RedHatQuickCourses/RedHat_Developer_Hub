@@ -1,6 +1,6 @@
 site:
-  title: FIXME Course Title
-  start_page: REPLACEREPONAME::index.adoc
+  title:  Introduction to Red Hat Developer Hub
+  start_page: RedHat_Developer_Hub::index.adoc
 
 content:
   sources:

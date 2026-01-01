@@ -1,0 +1,354 @@
+#  Template Structure
+
+= Template Structure
+
+Software Templates in Red Hat Developer Hub (RHDH) are powerful blueprints for generating new software components. Understanding their structure is crucial for authoring, maintaining, and effectively utilizing them. A template is typically a Git repository containing the necessary files and manifests that the RHDH Scaffolder uses to create a new project.
+
+== The Core: `template.yaml`
+
+The heart of any RHDH Software Template is the `template.yaml` file. This is the Scaffolder manifest, written in YAML, that defines the entire lifecycle of the template. It instructs the Scaffolder on what inputs to gather from the user, what actions to perform (e.g., fetching a base project, transforming files, publishing to Git), and what information to register back into the Software Catalog.
+
+A `template.yaml` generally consists of the following top-level sections:
+
+*   `apiVersion`: Specifies the API version of the Scaffolder kind. Typically `scaffolder.backstage.io/v1beta3`.
+*   `kind`: Always `Template`.
+*   `metadata`: Contains descriptive information about the template itself.
+*   `spec`: Defines the core logic of the template, including parameters, steps, and output.
+
+=== Metadata
+
+The `metadata` section provides essential information that helps users discover and understand the template in the RHDH UI.
+
+.Example `metadata` section
+[source,yaml]
+----
+metadata:
+  name: spring-boot-app
+  title: Spring Boot Microservice
+  description: Creates a basic Spring Boot application with REST endpoint.
+  tags:
+    - java
+    - spring
+    - microservice
+    - web
+  annotations:
+    backstage.io/managed-by-location: github:https://github.com/my-org/templates.git # <1>
+----
+<1> Annotations can provide additional context, such as the location of the template's source code.
+
+=== Specification (`spec`)
+
+The `spec` section is where the templating magic happens. It orchestrates the entire process.
+
+==== `owner` and `type`
+
+These fields help categorize the template.
+
+*   `owner`: Specifies the team or user responsible for maintaining the template. This links the template to entities in your Software Catalog.
+*   `type`: A broad categorization of what the template generates (e.g., `service`, `library`, `website`).
+
+.Example `owner` and `type`
+[source,yaml]
+----
+spec:
+  owner: group:default/engineering-team-a # <1>
+  type: service # <2>
+  # ... rest of spec
+----
+<1> The `owner` should typically point to a valid User or Group entity in your catalog.
+<2> The `type` helps filter templates in the RHDH UI.
+
+==== `parameters`
+
+The `parameters` section defines the input fields that the user will see and fill out when creating a new component from the template. These parameters are rendered as a form in the RHDH UI. They are crucial for customizing the generated project.
+
+Parameters are defined using a JSON Schema format.
+
+.Example `parameters` section
+[source,yaml]
+----
+spec:
+  # ...
+  parameters:
+    - title: Provide some simple information
+      required:
+        - component_id
+        - description
+        - owner
+      properties:
+        component_id:
+          title: Component Name
+          type: string
+          description: Unique name for the component
+          ui:autofocus: true
+          ui:options:
+            rows: 1
+        description:
+          title: Description
+          type: string
+          description: Help others understand what this component is for.
+        owner:
+          title: Owner
+          type: string
+          description: Who is the owner of this component?
+          ui:field: OwnerPicker # <1>
+          ui:options:
+            allowedKinds: [Group, User]
+----
+<1> `ui:field: OwnerPicker` is a special UI hint that tells RHDH to render a smart owner selection widget, linking to existing User/Group entities.
+
+==== `steps`
+
+The `steps` section defines the sequence of actions the Scaffolder will execute. Each step has an `id` (for logging and debugging) and an `action` (the type of operation to perform).
+
+Common actions include:
+
+*   `fetch:template`: Fetches a template repository, often containing a `skeleton` directory with the base project structure.
+*   `scaffold:cookiecutter`: Processes files using Jinja2-like templating (via Cookiecutter).
+*   `scaffold:copy`: Copies files directly.
+*   `publish:github` / `publish:gitlab` / `publish:azure`: Publishes the generated project to a Git repository.
+*   `catalog:register`: Registers the newly created component into the Software Catalog.
+
+.Example `steps` section
+[source,yaml]
+----
+spec:
+  # ...
+  steps:
+    - id: fetch-base-template
+      name: Fetch Base Template
+      action: fetch:template
+      input:
+        url: ./skeleton # <1>
+        copyWithoutRender:
+          - .github/workflows/* # <2>
+    - id: generate-project
+      name: Generate Project Files
+      action: scaffold:cookiecutter # <3>
+      input:
+        values: # <4>
+          component_id: ${{ parameters.component_id }}
+          description: ${{ parameters.description }}
+          owner: ${{ parameters.owner }}
+    - id: publish
+      name: Publish to GitHub
+      action: publish:github
+      input:
+        repoUrl: github.com?owner=my-org&repo=${{ parameters.component_id }} # <5>
+    - id: register-component
+      name: Register Component in Catalog
+      action: catalog:register
+      input:
+        catalogInfoPath: /catalog-info.yaml # <6>
+        repoContentsUrl: ${{ steps['publish'].output.repoContentsUrl }}
+----
+<1> `./skeleton` refers to a `skeleton` directory within the template's own repository.
+<2> `copyWithoutRender` ensures certain files (like GitHub Actions workflows) are copied verbatim without template variable substitution, preventing syntax errors.
+<3> `scaffold:cookiecutter` implies that the `skeleton` directory likely contains `cookiecutter.json` and uses Cookiecutter-style templating.
+<4> `values` maps the `parameters` collected from the user to variables used by the templating engine (e.g., Cookiecutter). Note the `{{ ... }}` syntax for accessing parameters.
+<5> The `repoUrl` is constructed dynamically using the `component_id` parameter.
+<6> `catalogInfoPath` specifies the path to the `catalog-info.yaml` *within the newly generated project*.
+
+==== `output`
+
+The `output` section allows you to expose specific results from the steps, making them available for later use or for display to the user.
+
+.Example `output` section
+[source,yaml]
+----
+spec:
+  # ...
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps['publish'].output.remoteUrl }} # <1>
+      - title: Open in Catalog
+        icon: catalog
+        url: /catalog/${{ parameters.component_id }}
+----
+<1> This example links to the newly created Git repository, using the output from the `publish` step.
+
+== `skeleton` Directory and `cookiecutter.json`
+
+If your `template.yaml` uses the `fetch:template` action pointing to a local directory (e.g., `./skeleton`) and then a `scaffold:cookiecutter` action, it means your template leverages Cookiecutter.
+
+*   `skeleton/`: This directory contains the raw project structure and files that will be used as the base for the new component. It will include placeholders (e.g., `{{ cookiecutter.component_id }}`) that Cookiecutter will replace with values provided by the Scaffolder.
+*   `skeleton/cookiecutter.json`: This file defines the variables that Cookiecutter expects. While the Scaffolder's `parameters` define the user-facing inputs, `cookiecutter.json` defines the variables the Cookiecutter *engine* will use for substitution. The Scaffolder bridges these two by mapping `parameters` to `cookiecutter.json` variables in the `scaffold:cookiecutter` step.
+
+.Example `skeleton/cookiecutter.json`
+[source,json]
+----
+{
+  "component_id": "my-app",
+  "description": "A new service",
+  "owner": "guest",
+  "_copy_without_render": [
+    ".github/workflows/*"
+  ]
+}
+----
+.Example `skeleton/README.md`
+[source,markdown]
+----
+# {{ cookiecutter.component_id }}
+
+This is a {{ cookiecutter.description }} owned by {{ cookiecutter.owner }}.
+----
+
+== `catalog-info.yaml` (within the generated project)
+
+Every component registered in the Red Hat Developer Hub Software Catalog needs a `catalog-info.yaml` file. When you generate a new component using a template, this file should be part of the generated project's structure. It defines the newly created component's metadata, type, owner, and relationships to other entities.
+
+Often, the `catalog-info.yaml` within the `skeleton` directory will also use templating to insert the values provided by the user.
+
+.Example `skeleton/catalog-info.yaml`
+[source,yaml]
+----
+apiVersion: backstage.io/v1beta1
+kind: Component
+metadata:
+  name: {{ cookiecutter.component_id }}
+  description: {{ cookiecutter.description }}
+  tags:
+    - java
+    - spring
+spec:
+  type: service
+  lifecycle: development
+  owner: {{ cookiecutter.owner }}
+  system: my-application-system # <1>
+----
+<1> `system` defines which logical system this component belongs to.
+
+== Hands-on Activity: Examining a Template Structure
+
+Let's walk through the structure of a simplified template.
+
+.Activity: Inspecting a Template
+.  **Goal**: Understand how the `template.yaml`, `skeleton/`, and `skeleton/catalog-info.yaml` files work together.
+.  **Prerequisites**:
+    *   A basic understanding of Git repositories.
+    *   Access to a text editor or an IDE.
+.  **Steps**:
+    1.  **Imagine a template repository**:
+        Assume you have a Git repository for a template named `my-simple-service-template` with the following structure:
+        ----
+        my-simple-service-template/
+        ├── template.yaml
+        └── skeleton/
+            ├── .gitignore
+            ├── README.md
+            ├── catalog-info.yaml
+            ├── src/
+            │   └── main.py
+            └── tests/
+                └── test_main.py
+        ----
+    2.  **Examine `template.yaml`**:
+        Consider this `template.yaml`:
+        [source,yaml]
+        ----
+        apiVersion: scaffolder.backstage.io/v1beta3
+        kind: Template
+        metadata:
+          name: simple-python-service
+          title: Simple Python Service
+          description: Generates a basic Python service.
+          tags:
+            - python
+            - service
+        spec:
+          owner: user:guest
+          type: service
+          parameters:
+            - title: Service Information
+              properties:
+                component_id:
+                  title: Component ID
+                  type: string
+                  description: Unique ID for your service.
+                description:
+                  title: Description
+                  type: string
+                  description: A brief description of the service.
+                owner:
+                  title: Owner
+                  type: string
+                  description: The owner of this service.
+                  ui:field: OwnerPicker
+                  ui:options:
+                    allowedKinds: [Group, User]
+          steps:
+            - id: fetch-base
+              name: Fetch Base Skeleton
+              action: fetch:template
+              input:
+                url: ./skeleton
+            - id: scaffold
+              name: Generate Service Files
+              action: scaffolder:run
+              input:
+                values:
+                  component_id: ${{ parameters.component_id }}
+                  description: ${{ parameters.description }}
+                  owner: ${{ parameters.owner }}
+            - id: publish
+              name: Publish to GitHub
+              action: publish:github
+              input:
+                repoUrl: github.com?owner=my-org&repo=${{ parameters.component_id }}
+            - id: register
+              name: Register in Catalog
+              action: catalog:register
+              input:
+                catalogInfoPath: /catalog-info.yaml
+                repoContentsUrl: ${{ steps['publish'].output.repoContentsUrl }}
+          output:
+            links:
+              - title: Repository
+                url: ${{ steps['publish'].output.remoteUrl }}
+              - title: Open in Catalog
+                icon: catalog
+                url: /catalog/${{ parameters.component_id }}
+        ----
+        *   Notice the `parameters` section collecting `component_id`, `description`, and `owner`.
+        *   The `fetch:template` step points to `./skeleton`.
+        *   The `scaffolder:run` (or `scaffold:cookiecutter`) step maps the `parameters` to `values` that will be used by the templating engine.
+        *   The `publish` and `register` steps use these values to create the repository and register the component.
+    3.  **Examine `skeleton/README.md`**:
+        Consider this `skeleton/README.md`:
+        [source,markdown]
+        ----
+        # {{ values.component_id }}
+
+        This is a simple Python service: {{ values.description }}
+
+        Owned by: {{ values.owner }}
+        ----
+        *   Here, `{{ values.component_id }}` and other placeholders indicate that a templating engine (like `scaffolder:run` with Nunjucks or `scaffold:cookiecutter`) will substitute these during generation.
+    4.  **Examine `skeleton/catalog-info.yaml`**:
+        Consider this `skeleton/catalog-info.yaml`:
+        [source,yaml]
+        ----
+        apiVersion: backstage.io/v1beta1
+        kind: Component
+        metadata:
+          name: {{ values.component_id }}
+          description: {{ values.description }}
+          tags:
+            - python
+            - service
+        spec:
+          type: service
+          lifecycle: development
+          owner: {{ values.owner }}
+        ----
+        *   Similarly, the `catalog-info.yaml` in the skeleton uses the templating variables (`{{ values.component_id }}`, etc.) to dynamically set the metadata for the new component.
+    5.  **Connect the dots**:
+        When a user fills out the form in RHDH for "Simple Python Service":
+        *   The inputs are captured by the `parameters` in `template.yaml`.
+        *   The `scaffolder:run` (or `scaffold:cookiecutter`) action takes these parameters, maps them to `values`, and uses them to process the files in the `skeleton/` directory.
+        *   The `README.md` and `catalog-info.yaml` (and any other templated files) inside `skeleton/` get their placeholders replaced with the user's input.
+        *   The resulting project is then published to Git and registered in the RHDH Catalog.
+
+This structured approach ensures consistency, automation, and a streamlined developer experience when creating new components in Red Hat Developer Hub.

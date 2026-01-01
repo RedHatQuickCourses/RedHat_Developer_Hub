@@ -1,0 +1,164 @@
+#  Initial setup and component registration
+
+= Initial Setup and Component Registration
+
+The Software Catalog is the central nervous system of an Internal Developer Platform, providing a single pane of glass for all your organization's software components. Before you can harness its power, you need to perform an initial setup process to configure how components are discovered and then register individual components. This section guides you through preparing your environment and registering your first software entity.
+
+== Preparing for Component Registration
+
+Before you can register components into the Red Hat Developer Hub's Software Catalog, ensure you have the following prerequisites in place:
+
+*   **Access to Red Hat Developer Hub:** You need a running instance of Red Hat Developer Hub (or Backstage) and appropriate user permissions to access the "Register Existing Component" functionality.
+*   **Git Repository Access:** Components are typically defined by `catalog-info.yaml` files stored in Git repositories (e.g., GitHub, GitLab, Bitbucket, Azure DevOps). You'll need access to a repository where you can create and push files.
+*   **Basic YAML Knowledge:** The `catalog-info.yaml` files are written in YAML. Familiarity with YAML syntax will be beneficial.
+
+The "initial setup" primarily involves understanding where the catalog finds its information and ensuring your component definitions are accessible to it. Red Hat Developer Hub works by "ingesting" `catalog-info.yaml` files from specified locations.
+
+== Understanding the catalog-info.yaml File
+
+As covered previously, the `catalog-info.yaml` file is the cornerstone of component registration. It acts as a manifest, providing the Software Catalog with all the necessary metadata about a software entity.
+
+A typical `catalog-info.yaml` file includes:
+
+*   `apiVersion`: Specifies the API version of the Backstage catalog schema. Common values are `backstage.io/v1alpha1`.
+*   `kind`: Defines the type of entity being described (e.g., `Component`, `API`, `System`, `Group`, `User`, `Resource`).
+*   `metadata`: Contains general information about the entity, such as:
+    *   `name`: A unique identifier for the entity within the catalog.
+    *   `description`: A brief summary of the entity.
+    *   `annotations`: Key-value pairs for additional metadata (e.g., links to external systems, ownership details).
+    *   `tags`: Keywords for categorization and filtering.
+*   `spec`: Contains specific details relevant to the `kind` of entity. For a `Component`, this might include:
+    *   `type`: The classification of the component (e.g., `service`, `library`, `website`).
+    *   `lifecycle`: The component's lifecycle stage (e.g., `experimental`, `production`, `deprecated`).
+    *   `owner`: The team or group responsible for the component.
+    *   `system`: The system this component belongs to (if applicable).
+    *   `dependsOn`: Other entities this component depends on.
+    *   `providesApi`: APIs exposed by this component.
+    *   `consumesApi`: APIs consumed by this component.
+
+.Example: A simple `catalog-info.yaml` for a frontend service
+```yaml
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: my-frontend-service
+  description: A sample React-based frontend service.
+  annotations:
+    github.com/project-slug: your-org/my-frontend-service
+    backstage.io/techdocs-ref: url:https://example.com/docs/my-frontend-service
+  tags:
+    - frontend
+    - react
+    - web
+spec:
+  type: service
+  lifecycle: production
+  owner: team-a
+  system: my-ecommerce-system
+  # Other properties like dependsOn, providesApi, consumesApi can be added here
+  # to define relationships with other catalog entities.
+```
+
+== Hands-on Activity: Registering Your First Component
+
+This activity guides you through the process of creating a `catalog-info.yaml` file in a Git repository and registering it with your Red Hat Developer Hub instance.
+
+.Objective
+Learn how to define a software component using `catalog-info.yaml` and register it into the Red Hat Developer Hub Software Catalog.
+
+.Prerequisites
+*   Access to a running Red Hat Developer Hub instance.
+*   A Git repository (e.g., on GitHub, GitLab, or a self-hosted Git server) where you have write access.
+*   `git` command-line tool installed on your local machine.
+
+.Instructions
+
+.Create a New Git Repository for your Component
+For this activity, we'll create a simple, empty repository. In a real-world scenario, this would be the repository containing your actual service code.
+
+a.  Navigate to your preferred Git hosting service (e.g., GitHub, GitLab) and create a new *public* repository.
+    *   Name it something descriptive, like `my-first-devhub-component`.
+    *   Initialize it with a `README.md` if prompted.
+b.  Clone the repository to your local machine:
+    ```bash
+    git clone https://github.com/your-org/my-first-devhub-component.git
+    cd my-first-devhub-component
+    ```
+    *Replace `https://github.com/your-org/my-first-devhub-component.git` with the actual URL of your repository.*
+
+.Define your Component with `catalog-info.yaml`
+Now, you'll create the `catalog-info.yaml` file that describes your component.
+
+a.  Inside your `my-first-devhub-component` directory, create a new file named `catalog-info.yaml`.
+b.  Paste the following content into the `catalog-info.yaml` file:
+    ```yaml
+    apiVersion: backstage.io/v1alpha1
+    kind: Component
+    metadata:
+      name: hello-devhub-world
+      description: A simple demonstration component for Red Hat Developer Hub.
+      annotations:
+        # Replace 'your-org' and 'my-first-devhub-component' with your actual repository path
+        github.com/project-slug: your-org/my-first-devhub-component
+        # Optional: Add a link to external documentation if you have it
+        # backstage.io/techdocs-ref: url:https://your-docs-site.com/hello-devhub-world
+      tags:
+        - demo
+        - training
+        - getting-started
+    spec:
+      type: service
+      lifecycle: experimental
+      owner: team-platform
+      system: training-demos
+    ```
+    *   **Important:** Update `github.com/project-slug` annotation to reflect your actual GitHub organization/user and repository name. If you're using GitLab, use `gitlab.com/project-slug: your-group/your-project`.
+    *   `owner` and `system` fields link to other entities in the catalog (groups and systems). For this exercise, `team-platform` and `training-demos` are placeholders; if these entities don't exist in your catalog, they will appear as broken links initially but can be created later.
+
+.Push the `catalog-info.yaml` to your Repository
+Commit and push the new file to your Git repository.
+
+a.  Add the `catalog-info.yaml` file to your Git staging area:
+    ```bash
+    git add catalog-info.yaml
+    ```
+b.  Commit the changes:
+    ```bash
+    git commit -m "Add catalog-info.yaml for hello-devhub-world component"
+    ```
+c.  Push the changes to your remote repository:
+    ```bash
+    git push origin main # Or 'master' depending on your branch name
+    ```
+
+.Register the Component Location in Red Hat Developer Hub
+Now, tell Developer Hub where to find your component definition.
+
+a.  Open your web browser and navigate to your Red Hat Developer Hub instance.
+b.  In the Developer Hub interface, look for a navigation link labeled *Register Existing Component* or similar (often found under the *Create* menu or directly in the sidebar).
+c.  You will be prompted to enter a URL. Provide the URL to your `catalog-info.yaml` file or the root of your Git repository.
+
+    *   **Option 1: Direct `catalog-info.yaml` URL (Recommended for single file)**
+        If your `catalog-info.yaml` is at the root of your `main` branch, the URL might look like:
+        `https://github.com/your-org/my-first-devhub-component/blob/main/catalog-info.yaml`
+        *Note:* For some Git providers, you might need the "raw" file URL for direct ingestion. For GitHub, `https://github.com/your-org/my-first-devhub-component/blob/main/catalog-info.yaml` often works. If not, try the raw content URL.
+
+    *   **Option 2: Repository Root URL (for discovering multiple files)**
+        If you want the catalog to discover all `catalog-info.yaml` files within your repository (e.g., in subdirectories), provide the root URL of your repository and a glob pattern:
+        `https://github.com/your-org/my-first-devhub-component/blob/main/*-info.yaml`
+        Or for all YAML files in the repo:
+        `https://github.com/your-org/my-first-devhub-component/blob/main/**/*.yaml`
+        *For simplicity in this exercise, use Option 1 with the direct path to your `catalog-info.yaml` file.*
+
+d.  Click the *Analyze* or *Register* button. Developer Hub will fetch the `catalog-info.yaml` file, parse it, and display a summary of the entities it found.
+e.  Confirm the registration. The catalog will then begin processing the component. This typically happens quickly.
+
+.Verify Component Registration
+Confirm that your new component is visible in the Software Catalog.
+
+a.  Navigate to the *Software Catalog* page in Red Hat Developer Hub.
+b.  Use the search bar or filters to find your newly registered component, `hello-devhub-world`.
+c.  Click on the component's entry to view its detailed page. You should see the description, tags, owner, and system information you defined in the `catalog-info.yaml`.
+d.  Observe the *Owner* and *System* links. If `team-platform` and `training-demos` do not yet exist as entities in your catalog, these links might appear broken or lead to empty pages. This is expected and shows how relationships are established, even if the target entity isn't fully defined yet.
+
+Congratulations! You have successfully performed the initial setup for component registration and added your first component to the Red Hat Developer Hub Software Catalog. This fundamental process is key to populating your platform with your organization's software landscape.

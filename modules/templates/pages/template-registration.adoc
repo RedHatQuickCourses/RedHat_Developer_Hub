@@ -1,0 +1,244 @@
+#  Template Registration
+
+= Template Registration
+
+This section delves into the process of registering software templates within Red Hat Developer Hub. Template registration is a crucial step that makes your predefined project structures and boilerplate code discoverable and usable by other developers through the Developer Hub's user interface.
+
+== What is Template Registration?
+
+Template registration is the mechanism by which Red Hat Developer Hub (RHDH) learns about the existence and location of your software templates. Similar to how individual software components are registered in the Software Catalog, templates also need to be cataloged. Once registered, a template becomes an accessible option for developers when they want to create new projects or services using the "Create" functionality in RHDH.
+
+The core idea is to treat templates as a specific `kind` of entity within the Software Catalog. By defining them with a `catalog-info.yaml` file, you provide RHDH with all the necessary metadata to display, categorize, and execute the template.
+
+=== The Role of `catalog-info.yaml` for Templates
+
+Just as with `Component` entities, a `catalog-info.yaml` file is the cornerstone of template registration. This YAML file describes the template to the Developer Hub's catalog service. When the catalog ingests this file, it identifies it as a `Template` kind and adds it to its internal index.
+
+Key attributes you'll find in a template's `catalog-info.yaml`:
+
+*   `apiVersion`: Specifies the API version, typically `backstage.io/v1alpha1`.
+*   `kind`: Must be `Template` for a software template.
+*   `metadata`:
+    *   `name`: A unique identifier for the template.
+    *   `title`: A user-friendly name displayed in the UI.
+    *   `description`: A brief explanation of what the template creates.
+    *   `tags`: Keywords for filtering and searching.
+    *   `annotations`: Additional metadata, such as `backstage.io/techdocs-ref` if documentation exists.
+*   `spec`: Defines the template's characteristics and where to find its actual definition.
+    *   `type`: A logical grouping for templates (e.g., `service`, `website`, `library`).
+    *   `lifecycle`: Indicates the maturity level (e.g., `experimental`, `production`, `deprecated`).
+    *   `owner`: The team or individual responsible for maintaining the template.
+    *   `template`: This nested object is crucial:
+        *   `repoUrl`: The URL of the Git repository containing the template source.
+        *   `path`: The path within the repository to the directory containing the `template.yaml` file. This is often `.` if `template.yaml` is at the root of the template's directory.
+        *   `supports`: (Optional) Specifies which scm provider is supported.
+
+.Example `catalog-info.yaml` for a Template
+[source,yaml]
+----
+apiVersion: backstage.io/v1alpha1
+kind: Template
+metadata:
+  name: spring-boot-microservice
+  title: Spring Boot Microservice Template
+  description: Creates a basic Spring Boot microservice with a REST endpoint.
+  tags:
+    - java
+    - spring-boot
+    - microservice
+    - backend
+  annotations:
+    backstage.io/techdocs-ref: url:https://example.com/docs/spring-boot-template
+spec:
+  type: service
+  lifecycle: experimental
+  owner: team-platform
+  template:
+    repoUrl: https://github.com/my-org/spring-boot-template-repo
+    path: . # Assumes template.yaml is at the root of the template's directory
+----
+
+TIP: The `path` attribute under `spec.template` refers to the directory *containing* the `template.yaml` file, not the `template.yaml` file itself. If your `template.yaml` is directly in the Git repository's root, `path` should be `.`. If it's in a subdirectory like `templates/spring-boot`, then `path` would be `templates/spring-boot`.
+
+=== Where to Store Template `catalog-info.yaml`
+
+The `catalog-info.yaml` for a template is typically stored in the same Git repository where the template's actual definition (`template.yaml` and associated files) resides. It should be placed in the root of the directory that defines the template. This co-location simplifies management and ensures that the template's metadata and its source code are versioned together.
+
+== Initial Setup and Template Registration
+
+To register templates, you first need to configure the Red Hat Developer Hub's catalog to discover them. This is done by adding a "location" to the catalog configuration that points to your Git repositories or specific files where `catalog-info.yaml` files for templates are stored.
+
+This process is identical to registering regular software components, but the `kind: Template` in the `catalog-info.yaml` is what distinguishes it.
+
+=== Hands-on Activity: Registering a Software Template
+
+In this activity, you will register a new software template with your Red Hat Developer Hub instance. We'll assume you have an existing Git repository with a template structure. If not, you can create a simple one or use a placeholder.
+
+==== Prerequisites
+
+*   Access to a running Red Hat Developer Hub instance.
+*   A Git repository (e.g., GitHub, GitLab, Bitbucket) where your template files are hosted.
+*   Admin access or permissions to configure RHDH catalog ingestion.
+
+==== Scenario
+
+You have a simple "Hello World" template that creates a basic `index.html` file. The template is located in a Git repository at `https://github.com/your-org/my-templates`. Inside this repository, there's a directory named `html-template` which contains the `template.yaml` and a `catalog-info.yaml` for the template.
+
+**1. Prepare Your Git Repository (if you don't have one)**
+
+If you don't have an existing template repository, create a new public GitHub repository (e.g., `my-templates`). Inside it, create the following directory structure and files:
+
+.File: `my-templates/html-template/catalog-info.yaml`
+[source,yaml]
+----
+apiVersion: backstage.io/v1alpha1
+kind: Template
+metadata:
+  name: basic-html-template
+  title: Basic HTML Website Template
+  description: Creates a simple HTML page with a 'Hello World' message.
+  tags:
+    - web
+    - frontend
+    - html
+  annotations:
+    backstage.io/techdocs-ref: url:https://example.com/docs/basic-html
+spec:
+  type: website
+  lifecycle: experimental
+  owner: team-frontend
+  template:
+    repoUrl: https://github.com/your-org/my-templates
+    path: html-template
+----
+
+.File: `my-templates/html-template/template.yaml`
+[source,yaml]
+----
+apiVersion: backstage.io/v1alpha1
+kind: Template
+metadata:
+  name: basic-html-template
+  title: Basic HTML Website Template
+spec:
+  owner: team-frontend
+  type: website
+  parameters:
+    - id: name
+      title: Project Name
+      required: true
+      type: string
+      ui:autofocus: true
+      ui:options:
+        rows: 5
+    - id: description
+      title: Project Description
+      required: false
+      type: string
+      ui:options:
+        rows: 5
+  steps:
+    - id: fetch-base
+      name: Fetch Base HTML
+      action: fetch:template
+      input:
+        url: ./content
+        copyWithoutRender:
+          - .github/workflows/*
+    - id: publish
+      name: Publish
+      action: publish:github
+      input:
+        allowedHosts: ['github.com']
+        description: ${{ parameters.description }}
+        repoUrl: github.com?owner=your-org&repo=${{ parameters.name }}
+    - id: register
+      name: Register
+      action: catalog:register
+      input:
+        repoContentsUrl: ${{ steps.publish.output.repoContentsUrl }}
+        catalogInfoPath: '/catalog-info.yaml'
+
+  output:
+    links:
+      - title: Repository
+        url: ${{ steps.publish.output.remoteUrl }}
+      - title: Open in catalog
+        icon: catalog
+        entityRef: ${{ steps.register.output.entityRef }}
+----
+
+.File: `my-templates/html-template/content/index.html.hbs`
+[source,html]
+----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{ name }}</title>
+</head>
+<body>
+    <h1>Hello from {{ name }}!</h1>
+    <p>This is a basic HTML page generated by the template.</p>
+    {{#if description}}
+    <p>Description: {{ description }}</p>
+    {{/if}}
+</body>
+</html>
+----
+
+.File: `my-templates/html-template/content/catalog-info.yaml`
+[source,yaml]
+----
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: ${{ parameters.name | dump }}
+  description: ${{ parameters.description | dump }}
+  annotations:
+    github.com/project-slug: your-org/${{ parameters.name }}
+spec:
+  type: website
+  lifecycle: experimental
+  owner: team-frontend
+  system: default
+----
+
+*Make sure to replace `your-org` with your actual GitHub username or organization name in all the files.*
+
+**2. Add the Template Location to Red Hat Developer Hub**
+
+You need to tell RHDH where to find this `catalog-info.yaml` file.
+
+.  Navigate to your Red Hat Developer Hub instance.
+.  Access the **Admin Settings** (usually via the user icon or a specific "Settings" link).
+.  Go to the **Catalog** section, then select **Locations**.
+.  Click the **+ Add** button or equivalent to add a new ingestion location.
+.  In the `Target` field, specify the URL to your template's `catalog-info.yaml` file in the Git repository. For example:
+    `url:https://github.com/your-org/my-templates/blob/main/html-template/catalog-info.yaml`
+    Alternatively, to ingest all `catalog-info.yaml` files within the `html-template` directory (and its subdirectories) recursively:
+    `url:https://github.com/your-org/my-templates/tree/main/html-template`
+    And set the `Type` to `github-discovery` (or the appropriate type for your SCM).
+.  Click **Save**.
+
+NOTE: The `catalog-info.yaml` in `my-templates/html-template/catalog-info.yaml` defines the *template entity itself*. The `catalog-info.yaml` in `my-templates/html-template/content/catalog-info.yaml` defines the *component entity that will be created by the template*. This distinction is important for understanding what gets registered where.
+
+**3. Verify Template Registration**
+
+.  After adding the location, wait a few moments for the catalog to ingest the new entry. You can monitor the "Ingestion Logs" in the Admin Settings for any errors.
+.  Navigate to the **Create** tab in Red Hat Developer Hub (usually found in the left-hand navigation bar).
+.  You should now see "Basic HTML Website Template" listed among the available templates.
+.  Click on the template to view its details, including the description, owner, and tags you specified in `catalog-info.yaml`.
+
+Congratulations! You have successfully registered a software template in Red Hat Developer Hub, making it available for developers to use.
+
+== Expert Insights and Troubleshooting
+
+*   **YAML Syntax Errors:** The most common issue is incorrect YAML syntax in `catalog-info.yaml` or `template.yaml`. Use a YAML linter to validate your files.
+*   **Incorrect `kind`:** Ensure `kind: Template` is correctly specified in the template's `catalog-info.yaml`.
+*   **Incorrect `repoUrl` or `path`:** Double-check that `spec.template.repoUrl` points to the correct Git repository and `spec.template.path` accurately specifies the *directory* containing `template.yaml` within that repository. Even a trailing slash can cause issues.
+*   **Catalog Ingestion Issues:** If the template doesn't appear, check the RHDH catalog ingestion logs (usually in the Admin section) for errors related to the URL you provided. Network connectivity issues, incorrect Git host configuration, or authentication problems can prevent ingestion.
+*   **Template Not Showing in UI:** If the template is registered but not visible in the "Create" tab, ensure the RHDH frontend plugin for the create flow is correctly configured and has access to the catalog.
+*   **Permissions:** Ensure that the RHDH catalog service has the necessary permissions to access your Git repository (e.g., a service account token with read access).
+*   **Template Content Validation:** Beyond registration, the `template.yaml` itself must be valid for the template to function correctly when executed. Errors here will manifest during the template execution phase rather than registration.

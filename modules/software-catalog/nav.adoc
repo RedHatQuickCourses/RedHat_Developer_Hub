@@ -1,0 +1,5 @@
+* xref:software-catalog.adoc[]
+** xref:overview.adoc[]
+** xref:entities.adoc[]
+** xref:catalog-info-file.adoc[]
+** xref:initial-setup-and-component-registration.adoc[]

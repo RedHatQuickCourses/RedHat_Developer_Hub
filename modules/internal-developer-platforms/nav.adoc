@@ -1,0 +1,4 @@
+* xref:internal-developer-platforms.adoc[]
+** xref:a-platform-for-developers.adoc[]
+** xref:history.adoc[]
+** xref:red-hat-developer-hub.adoc[]

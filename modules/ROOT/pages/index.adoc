@@ -1,22 +1,25 @@
-= An Example Quick Course
+=  Introduction to Red Hat Developer Hub
 :navtitle: Home
 
 == Introduction
 
-Course Title: Course title FIXME
+Course Title:  Introduction to Red Hat Developer Hub
 
 Description:
 Course description FIXME
 
 Duration: FIXME hours
 
-== Objectives
+== Topics covered in this course
 
-On completing this course, you should be able to:
 
-* Observable, measurable objective...
-* Observable, measurable objective...
-* Observable, measurable objective...
+*  Internal developer platforms
+
+*  Software Catalog
+
+*  Templates
+
+
 
 == Prerequisites
 

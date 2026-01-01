@@ -1,10 +1,14 @@
-name: REPLACEREPONAME
-title: FIXME Course Title
-version: 1
+name: RedHat_Developer_Hub
+title:  Introduction to Red Hat Developer Hub
+version: 1.0.0
 nav:
 - modules/ROOT/nav.adoc
 - modules/LABENV/nav.adoc
-- modules/chapter1/nav.adoc
-- modules/chapter2/nav.adoc
-- modules/chapter3/nav.adoc
+
+- modules/internal-developer-platforms/nav.adoc
+
+- modules/software-catalog/nav.adoc
+
+- modules/templates/nav.adoc
+
 - modules/appendix/nav.adoc

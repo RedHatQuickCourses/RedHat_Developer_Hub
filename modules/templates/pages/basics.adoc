@@ -1,0 +1,111 @@
+#  Basics
+
+:basic-templates.adoc
+[id="basic-templates"]
+==== Basics
+
+Software templates are a cornerstone of any Internal Developer Platform (IDP), and Red Hat Developer Hub leverages them to provide a streamlined, standardized, and self-service experience for developers. They empower developers to quickly scaffold new applications, services, or other software components with predefined configurations and best practices built-in.
+
+[NOTE]
+====
+In Red Hat Developer Hub, software templates are powered by the Backstage Scaffolder. The Scaffolder is a plugin that allows users to create new software projects based on predefined templates. It uses a templating engine (like Jinja2 or Handlebars, often integrated with tools like Cookiecutter or Yeoman) to generate files and directories, and it can execute a series of actions (like pushing to Git, creating GitHub repositories, or registering components in the catalog).
+====
+
+===== What are Software Templates?
+
+At their core, software templates are predefined blueprints that encapsulate the necessary code, configuration, and setup required to initiate a new software project or component. Instead of manually setting up boilerplate code, build configurations, CI/CD pipelines, and repository structures, developers can simply choose a template, provide a few parameters, and let the platform do the heavy lifting.
+
+Key characteristics and benefits:
+
+*   **Standardization:** Enforce consistent project structures, technology stacks, and best practices across the organization. This reduces "snowflake" projects and simplifies maintenance.
+*   **Speed and Efficiency:** Drastically reduce the time it takes to get a new project or service off the ground, moving from idea to a working skeleton in minutes.
+*   **Reduced Cognitive Load:** Developers don't need to remember complex setup procedures or find the "right" way to start a project. The template guides them.
+*   **Automated Best Practices:** Embed security policies, linting rules, testing frameworks, and deployment configurations directly into the template, ensuring compliance from day one.
+*   **Self-Service:** Empower developers to provision their own resources and kickstart projects without needing to involve other teams (e.g., operations, platform engineering) for initial setup.
+*   **Evolutionary:** Templates can be updated and versioned, allowing the platform team to roll out new best practices and technologies seamlessly.
+
+===== How do Software Templates Work?
+
+The process of using a software template typically involves these steps:
+
+.   **Discovery:** A developer browses available templates in the Red Hat Developer Hub's "Create" section.
+.   **Selection:** The developer chooses a template that aligns with their needs (e.g., "Node.js REST API," "Quarkus Microservice," "React Frontend").
+.   **Input:** The template presents a form where the developer provides specific parameters for their new project, such as:
+    *   Component ID (e.g., `my-new-service`)
+    *   Owner team (e.g., `devops-team`)
+    *   Repository URL (where the new code will be pushed)
+    *   Specific configuration options (e.g., database type, port number)
+.   **Scaffolding:** Once the form is submitted, the Scaffolder component takes over. It uses the template's definition and the provided input to:
+    *   Clone a skeleton repository or generate files from scratch.
+    *   Substitute variables in template files with the user's input.
+    *   Execute a series of predefined "actions" (e.g., create a new Git repository, push the generated code, create a CI/CD pipeline, register the new component in the Software Catalog).
+.   **Completion:** The developer is notified once the scaffolding process is complete. They can then navigate to their new repository, begin development, and see the new component listed in the Red Hat Developer Hub Software Catalog.
+
+[IMPORTANT]
+====
+The "Basics" of templates primarily revolve around understanding *what* they are and *how to use* them to create new components. Details about *how to create or register* templates are covered in subsequent topics like "Template Registration" and "Template Structure."
+====
+
+===== Hands-on Activity: Creating a Component using a Basic Template
+
+In this activity, you will learn how to use an existing software template within Red Hat Developer Hub to create a new component. This will demonstrate the power of self-service scaffolding.
+
+[NOTE]
+====
+For this lab, we assume you have access to a running Red Hat Developer Hub instance with at least one basic template already registered and available for use. Your Red Hat Developer Hub administrator should provide you with the URL and necessary access credentials.
+====
+
+.Prerequisites
+*   Access to a running Red Hat Developer Hub instance.
+*   A basic template (e.g., "Node.js Starter App," "Simple Go Service," or a similar pre-configured template) registered and visible in the "Create" section.
+*   A Git provider (e.g., GitHub, GitLab) where the new repository can be created and pushed. You will need a personal access token (PAT) or similar credentials if the template is configured to create repositories on your behalf.
+
+.Steps
+
+.   **Log in to Red Hat Developer Hub:**
+    *   Open your web browser and navigate to your Red Hat Developer Hub instance URL.
+    *   Log in using your provided credentials.
+
+.   **Navigate to the Create Component page:**
+    *   In the left-hand navigation pane, click on the **Create** link.
+    *   You will see a list of available software templates.
+
+.   **Select a Template:**
+    *   Find a simple template, for example, one named "Simple Node.js Starter App" or similar.
+    *   Click on the template card to select it.
+
+.   **Fill out the Template Form:**
+    *   The template form will appear, prompting you for various details. Fill in the required fields:
+        **Name:** Enter a unique name for your new component (e.g., `my-first-service`).
+        **Owner:** Select an existing team or enter a new owner ID (e.g., `user:guest` or `team:my-team`).
+        **Repository URL:** This is crucial. Provide the URL for your new Git repository. Ensure it's a valid and accessible URL where the template output can be pushed.
+        For example: `https://github.com/your-username/my-first-service` or `https://gitlab.com/your-username/my-first-service`.
+        [IMPORTANT]
+        ====
+        Ensure the repository URL you provide points to a *new, empty* repository location or a location where the Scaffolder has permission to create one. If it points to an existing, non-empty repository, the template creation might fail.
+        ====
+        **Other fields:** Fill in any other fields as required by the template (e.g., description, port number, technical owner).
+
+.   **Review and Create:**
+    *   After filling in all the details, click the **Next** or **Review** button (the exact button name may vary depending on the template configuration).
+    *   Review the summary of your choices. If everything looks correct, click **Create**.
+
+.   **Monitor the Scaffolding Process:**
+    *   The Red Hat Developer Hub will now start the scaffolding process. You will see a progress bar and a log of the actions being performed by the Scaffolder.
+    *   Common actions include:
+        *   Cloning the template source.
+        *   Running a templating engine (e.g., Cookiecutter).
+        *   Pushing the generated code to your specified Git repository.
+        *   Registering the new component in the Software Catalog.
+
+.   **Verify Component Creation:**
+    *   Once the scaffolding process completes successfully, you will see a success message.
+    *   Click the **View in Catalog** button or navigate to the **Catalog** link in the left-hand navigation pane.
+    *   Search for your newly created component (e.g., `my-first-service`). It should now be listed in the Software Catalog.
+    *   Click on your component to view its details, including its entity file, links to the repository, and any CI/CD pipelines created.
+
+.   **Verify Git Repository:**
+    *   Navigate to the Git repository URL you provided during step 4.
+    *   You should see the newly generated code, including the basic application structure and configuration files, committed to the repository.
+
+You have successfully used a software template in Red Hat Developer Hub to create a new component. This hands-on experience demonstrates the efficiency and standardization that templates bring to the development workflow.

@@ -1,0 +1,12 @@
+#  Software Catalog
+
+[NOTE]
+This content is under development.
+==== Software Catalog
+
+The Software Catalog serves as a central registry for all software components, services, and resources within an organization. It provides a unified view and discoverability for developers.
+
+*   **Overview**: A single pane of glass for all software assets, enabling developers to find, understand, and reuse existing components.
+*   **Entities**: Represents various types of software components such as services, websites, libraries, APIs, and resources like databases or S3 buckets.
+*   **`catalog-info.yaml` file**: A YAML descriptor file that defines metadata about a software component, including its owner, type, tags, and associated resources. This file is committed alongside the component's source code.
+*   **Initial setup and component registration**: Involves setting up the catalog backend and registering new components by pointing the catalog to their `catalog-info.yaml` files.
