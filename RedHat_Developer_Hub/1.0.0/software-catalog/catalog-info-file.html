@@ -161,34 +161,59 @@
 </aside>
 <article class="doc">
 <h1 class="page">catalog-info file</h1>
+<div id="preamble">
+<div class="sectionbody">
 <div class="paragraph">
 <p>Antora AsciiDoc format is used for the content.</p>
 </div>
+<div class="paragraph">
+<p>adoc
+= The catalog-info.yaml File</p>
+</div>
+<div class="paragraph">
+<p>The <code>catalog-info.yaml</code> file is the cornerstone for defining and registering entities within the Red Hat Developer Hub&#8217;s Software Catalog. It acts as a manifest, providing a standardized way to describe software components, APIs, systems, and other resources across an organization. By placing this file in the root directory of a Git repository, you make your software discoverable and manageable within the Developer Hub ecosystem.</p>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_what_is_catalog_info_yaml"><a class="anchor" href="#_what_is_catalog_info_yaml"></a>What is catalog-info.yaml?</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>At its core, <code>catalog-info.yaml</code> is a YAML-formatted configuration file that contains metadata about a specific software entity. This metadata transforms raw code repositories and services into structured, discoverable entries in the Developer Hub&#8217;s Software Catalog. It allows developers, operations teams, and stakeholders to understand what a piece of software is, who owns it, what it does, and how it relates to other parts of the organization&#8217;s technology landscape.</p>
+</div>
+<div class="sect2">
+<h3 id="_why_is_catalog_info_yaml_important"><a class="anchor" href="#_why_is_catalog_info_yaml_important"></a>Why is catalog-info.yaml Important?</h3>
+<div class="ulist">
+<ul>
+<li>
+<p><strong>Standardization:</strong> Provides a consistent schema for describing all types of software entities.</p>
+</li>
+<li>
+<p><strong>Discoverability:</strong> Enables the Developer Hub to automatically ingest and display information about components, making them easy to find and understand.</p>
+</li>
+<li>
+<p><strong>Ownership:</strong> Clearly defines who is responsible for a component, improving accountability and communication.</p>
+</li>
+<li>
+<p><strong>Context and Relationships:</strong> Establishes connections between different entities (e.g., a service belonging to a system, an API provided by a component), building a comprehensive dependency graph.</p>
+</li>
+<li>
+<p><strong>Automation:</strong> Powers various Developer Hub features, such as TechDocs documentation generation, CI/CD pipeline integration, and resource provisioning.</p>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_structure_of_catalog_info_yaml"><a class="anchor" href="#_structure_of_catalog_info_yaml"></a>Structure of catalog-info.yaml</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Every <code>catalog-info.yaml</code> file adheres to a well-defined structure, typically comprising four main top-level fields: <code>apiVersion</code>, <code>kind</code>, <code>metadata</code>, and <code>spec</code>.</p>
+</div>
 <div class="listingblock">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-adoc hljs" data-lang="adoc">= The catalog-info.yaml File
-
-The `catalog-info.yaml` file is the cornerstone for defining and registering entities within the Red Hat Developer Hub's Software Catalog. It acts as a manifest, providing a standardized way to describe software components, APIs, systems, and other resources across an organization. By placing this file in the root directory of a Git repository, you make your software discoverable and manageable within the Developer Hub ecosystem.
-
-== What is catalog-info.yaml?
-
-At its core, `catalog-info.yaml` is a YAML-formatted configuration file that contains metadata about a specific software entity. This metadata transforms raw code repositories and services into structured, discoverable entries in the Developer Hub's Software Catalog. It allows developers, operations teams, and stakeholders to understand what a piece of software is, who owns it, what it does, and how it relates to other parts of the organization's technology landscape.
-
-=== Why is catalog-info.yaml Important?
-
-*   *Standardization:* Provides a consistent schema for describing all types of software entities.
-*   *Discoverability:* Enables the Developer Hub to automatically ingest and display information about components, making them easy to find and understand.
-*   *Ownership:* Clearly defines who is responsible for a component, improving accountability and communication.
-*   *Context and Relationships:* Establishes connections between different entities (e.g., a service belonging to a system, an API provided by a component), building a comprehensive dependency graph.
-*   *Automation:* Powers various Developer Hub features, such as TechDocs documentation generation, CI/CD pipeline integration, and resource provisioning.
-
-== Structure of catalog-info.yaml
-
-Every `catalog-info.yaml` file adheres to a well-defined structure, typically comprising four main top-level fields: `apiVersion`, `kind`, `metadata`, and `spec`.
-
-[source,yaml]
-----
-apiVersion: backstage.io/v1alpha1
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: backstage.io/v1alpha1
 kind: Component # or API, System, Resource, Group, User, Location
 metadata:
   name: example-service # Unique identifier for this entity
@@ -207,52 +232,92 @@ spec:
   dependsOn: # Optional: List of dependencies
     - component:another-service
     - api:third-party-api
-  # Other kind-specific fields go here
-----
-
-Let's break down each of these fields:
-
-=== apiVersion
-
-This field specifies the API version of the catalog definition schema. For Red Hat Developer Hub (which is based on Backstage), this is almost always `backstage.io/v1alpha1`.
-
-[source,yaml]
-----
-apiVersion: backstage.io/v1alpha1
-----
-
-=== kind
-
-The `kind` field defines the type of entity being described by the `catalog-info.yaml` file. The most common kinds include:
-
-*   `Component`: Represents a deployable software unit, such as a microservice, library, or website.
-*   `API`: Describes an Application Programming Interface (e.g., REST, GraphQL, gRPC).
-*   `System`: A collection of related components and APIs that work together to deliver a larger business capability.
-*   `Resource`: External infrastructure dependencies, like a database, message queue, or cloud storage bucket.
-*   `Group`: Represents a team or organizational unit.
-*   `User`: Represents an individual.
-*   `Location`: Used to register other `catalog-info.yaml` files or other catalog definition sources.
-
-[source,yaml]
-----
-kind: Component # Example: defining a software component
-----
-
-=== metadata
-
-The `metadata` field contains essential descriptive information about the entity.
-
-*   `name` (Required): A unique, URL-friendly identifier for the entity within the catalog. It must be lowercase, kebab-cased, and unique across all entities of the same kind.
-*   `description` (Optional): A human-readable summary of the entity's purpose.
-*   `annotations` (Optional): A map of key-value pairs used to link the entity to external systems or provide additional structured metadata. Common annotations include:
-    *   `backstage.io/techdocs-ref`: Points to the location of the entity's TechDocs documentation.
-    *   `github.com/project-slug`: Links to the GitHub repository (e.g., `my-org/my-repo`).
-    *   `backstage.io/kubernetes-id`: Associates the entity with a Kubernetes resource.
-*   `tags` (Optional): A list of short, descriptive strings used for categorization and filtering.
-
-[source,yaml]
-----
-metadata:
+  # Other kind-specific fields go here</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>Let&#8217;s break down each of these fields:</p>
+</div>
+<div class="sect2">
+<h3 id="_apiversion"><a class="anchor" href="#_apiversion"></a>apiVersion</h3>
+<div class="paragraph">
+<p>This field specifies the API version of the catalog definition schema. For Red Hat Developer Hub (which is based on Backstage), this is almost always <code>backstage.io/v1alpha1</code>.</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">apiVersion: backstage.io/v1alpha1</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_kind"><a class="anchor" href="#_kind"></a>kind</h3>
+<div class="paragraph">
+<p>The <code>kind</code> field defines the type of entity being described by the <code>catalog-info.yaml</code> file. The most common kinds include:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>Component</code>: Represents a deployable software unit, such as a microservice, library, or website.</p>
+</li>
+<li>
+<p><code>API</code>: Describes an Application Programming Interface (e.g., REST, GraphQL, gRPC).</p>
+</li>
+<li>
+<p><code>System</code>: A collection of related components and APIs that work together to deliver a larger business capability.</p>
+</li>
+<li>
+<p><code>Resource</code>: External infrastructure dependencies, like a database, message queue, or cloud storage bucket.</p>
+</li>
+<li>
+<p><code>Group</code>: Represents a team or organizational unit.</p>
+</li>
+<li>
+<p><code>User</code>: Represents an individual.</p>
+</li>
+<li>
+<p><code>Location</code>: Used to register other <code>catalog-info.yaml</code> files or other catalog definition sources.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">kind: Component # Example: defining a software component</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_metadata"><a class="anchor" href="#_metadata"></a>metadata</h3>
+<div class="paragraph">
+<p>The <code>metadata</code> field contains essential descriptive information about the entity.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>name</code> (Required): A unique, URL-friendly identifier for the entity within the catalog. It must be lowercase, kebab-cased, and unique across all entities of the same kind.</p>
+</li>
+<li>
+<p><code>description</code> (Optional): A human-readable summary of the entity&#8217;s purpose.</p>
+</li>
+<li>
+<p><code>annotations</code> (Optional): A map of key-value pairs used to link the entity to external systems or provide additional structured metadata. Common annotations include:</p>
+</li>
+<li>
+<p><code>backstage.io/techdocs-ref</code>: Points to the location of the entity&#8217;s TechDocs documentation.</p>
+</li>
+<li>
+<p><code>github.com/project-slug</code>: Links to the GitHub repository (e.g., <code>my-org/my-repo</code>).</p>
+</li>
+<li>
+<p><code>backstage.io/kubernetes-id</code>: Associates the entity with a Kubernetes resource.</p>
+</li>
+<li>
+<p><code>tags</code> (Optional): A list of short, descriptive strings used for categorization and filtering.</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">metadata:
   name: user-authentication-service
   description: Handles user login, registration, and session management.
   annotations:
@@ -262,25 +327,46 @@ metadata:
   tags:
     - security
     - authentication
-    - identity
-----
-
-=== spec
-
-The `spec` field contains the core definition and technical characteristics of the entity, which vary depending on the `kind`.
-
-*   `type` (Required for `Component`): Categorizes the nature of the component (e.g., `service`, `library`, `website`, `frontend`, `backend`).
-*   `lifecycle` (Required for `Component`): Indicates the development maturity stage (e.g., `experimental`, `production`, `deprecated`).
-*   `owner` (Required): A reference to the group or user entity responsible for this component. This helps establish clear ownership and enables linking in the Developer Hub UI. Format: `group:my-team` or `user:johndoe`.
-*   `system` (Optional): A reference to the `System` entity this component belongs to, if applicable. Format: `system:my-system`.
-*   `dependsOn` (Optional): A list of other entities that this entity depends on. This helps visualize dependencies. Format: `component:another-service`, `api:third-party-api`, `resource:my-database`.
-*   `providesApis` (Optional for `Component`): A list of `API` entities that this component provides.
-*   `consumesApis` (Optional for `Component`): A list of `API` entities that this component consumes.
-*   `definition` (Required for `API`): For `API` kind, this typically points to the API definition file (e.g., OpenAPI spec).
-
-[source,yaml]
-----
-spec:
+    - identity</code></pre>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_spec"><a class="anchor" href="#_spec"></a>spec</h3>
+<div class="paragraph">
+<p>The <code>spec</code> field contains the core definition and technical characteristics of the entity, which vary depending on the <code>kind</code>.</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p><code>type</code> (Required for <code>Component</code>): Categorizes the nature of the component (e.g., <code>service</code>, <code>library</code>, <code>website</code>, <code>frontend</code>, <code>backend</code>).</p>
+</li>
+<li>
+<p><code>lifecycle</code> (Required for <code>Component</code>): Indicates the development maturity stage (e.g., <code>experimental</code>, <code>production</code>, <code>deprecated</code>).</p>
+</li>
+<li>
+<p><code>owner</code> (Required): A reference to the group or user entity responsible for this component. This helps establish clear ownership and enables linking in the Developer Hub UI. Format: <code>group:my-team</code> or <code>user:johndoe</code>.</p>
+</li>
+<li>
+<p><code>system</code> (Optional): A reference to the <code>System</code> entity this component belongs to, if applicable. Format: <code>system:my-system</code>.</p>
+</li>
+<li>
+<p><code>dependsOn</code> (Optional): A list of other entities that this entity depends on. This helps visualize dependencies. Format: <code>component:another-service</code>, <code>api:third-party-api</code>, <code>resource:my-database</code>.</p>
+</li>
+<li>
+<p><code>providesApis</code> (Optional for <code>Component</code>): A list of <code>API</code> entities that this component provides.</p>
+</li>
+<li>
+<p><code>consumesApis</code> (Optional for <code>Component</code>): A list of <code>API</code> entities that this component consumes.</p>
+</li>
+<li>
+<p><code>definition</code> (Required for <code>API</code>): For <code>API</code> kind, this typically points to the API definition file (e.g., OpenAPI spec).</p>
+</li>
+</ul>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">spec:
   type: service
   lifecycle: production
   owner: group:frontend-team # The owning team
@@ -290,97 +376,199 @@ spec:
     - resource:customer-db
     - api:identity-provider-api
   providesApis:
-    - user-auth-api # An API defined elsewhere with kind: API, name: user-auth-api
+    - user-auth-api # An API defined elsewhere with kind: API, name: user-auth-api</code></pre>
+</div>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+The specific fields within <code>spec</code> are context-dependent based on the <code>kind</code> of the entity. Always refer to the official Developer Hub/Backstage documentation for the full schema details for each <code>kind</code>.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_hands_on_activity_defining_your_first_component"><a class="anchor" href="#_hands_on_activity_defining_your_first_component"></a>Hands-on Activity: Defining Your First Component</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>In this activity, you will create a <code>catalog-info.yaml</code> file to define a simple "Hello World" service. This will give you practical experience with the file&#8217;s structure.</p>
+</div>
+<div class="sect2">
+<h3 id="_objectives"><a class="anchor" href="#_objectives"></a>Objectives</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Create a <code>catalog-info.yaml</code> file in a simulated repository.</p>
+</li>
+<li>
+<p>Define a <code>Component</code> entity with basic metadata and specifications.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_prerequisites"><a class="anchor" href="#_prerequisites"></a>Prerequisites</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>A text editor (VS Code, Sublime Text, Vim, etc.).</p>
+</li>
+<li>
+<p>Basic understanding of YAML syntax.</p>
+</li>
+<li>
+<p>(Optional but recommended for later steps) A Git repository where you can commit this file.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_steps"><a class="anchor" href="#_steps"></a>Steps</h3>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p><strong>Choose Your Location</strong>
+For this exercise, imagine you&#8217;re working within a Git repository that hosts your <code>hello-world-service</code> code. Navigate to the root of that repository in your terminal or file explorer. If you don&#8217;t have a specific repository, simply create a new directory for this exercise, e.g., <code>mkdir my-hello-world-service &amp;&amp; cd my-hello-world-service</code>.</p>
+</li>
+<li>
+<p><strong>Create the <code>catalog-info.yaml</code> File</strong>
+In the root of your chosen location, create a new file named <code>catalog-info.yaml</code>.</p>
+<div class="literalblock">
+<div class="content">
+<pre>[source,bash]
 ----
-
-[NOTE]
-The specific fields within `spec` are context-dependent based on the `kind` of the entity. Always refer to the official Developer Hub/Backstage documentation for the full schema details for each `kind`.
-
-== Hands-on Activity: Defining Your First Component
-
-In this activity, you will create a `catalog-info.yaml` file to define a simple "Hello World" service. This will give you practical experience with the file's structure.
-
-=== Objectives
-
-*   Create a `catalog-info.yaml` file in a simulated repository.
-*   Define a `Component` entity with basic metadata and specifications.
-
-=== Prerequisites
-
-*   A text editor (VS Code, Sublime Text, Vim, etc.).
-*   Basic understanding of YAML syntax.
-*   (Optional but recommended for later steps) A Git repository where you can commit this file.
-
-=== Steps
-
-.  **Choose Your Location**
-   For this exercise, imagine you're working within a Git repository that hosts your `hello-world-service` code. Navigate to the root of that repository in your terminal or file explorer. If you don't have a specific repository, simply create a new directory for this exercise, e.g., `mkdir my-hello-world-service &amp;&amp; cd my-hello-world-service`.
-
-.  **Create the `catalog-info.yaml` File**
-   In the root of your chosen location, create a new file named `catalog-info.yaml`.
-
-   [source,bash]
-   ----
-   touch catalog-info.yaml
-   ----
-
-.  **Add Component Definition**
-   Open `catalog-info.yaml` with your text editor and add the following content. This defines a basic `Component` representing a simple "Hello World" microservice.
-
-   [source,yaml]
-   ----
-   # catalog-info.yaml for a 'Hello World' service
-   apiVersion: backstage.io/v1alpha1
-   kind: Component
-   metadata:
-     name: hello-world-service
-     description: A minimal service that responds with "Hello World!".
-     annotations:
-       backstage.io/techdocs-ref: url:./
-       github.com/project-slug: your-github-org/hello-world-service # Replace with your GitHub org/repo
-     tags:
-       - getting-started
-       - demo
-       - microservice
-   spec:
-     type: service
-     lifecycle: experimental # Start with experimental, you can change it later
-     owner: group:your-team-name # Replace with your actual team name or user ID
-     system: learning-platform # An example system, can be changed
-     # No explicit dependencies for a simple hello world service
-   ----
-
-.  **Review the Content**
-   Carefully examine each field you've entered:
-
-    *   `apiVersion`: Standard `backstage.io/v1alpha1`.
-    *   `kind`: Set to `Component` because it's a deployable service.
-    *   `metadata.name`: `hello-world-service` is its unique identifier.
-    *   `metadata.description`: A brief summary.
-    *   `metadata.annotations.backstage.io/techdocs-ref`: Points to documentation in the current directory.
-    *   `metadata.annotations.github.com/project-slug`: *Remember to replace `your-github-org/hello-world-service` with an actual or hypothetical GitHub repository slug.*
-    *   `metadata.tags`: Used for categorization.
-    *   `spec.type`: `service` indicates it's a running application.
-    *   `spec.lifecycle`: `experimental` denotes it's still under development.
-    *   `spec.owner`: `group:your-team-name` assigns ownership. *Replace `your-team-name` with your actual team name or user ID prefixed with `user:`.*
-    *   `spec.system`: `learning-platform` puts it into a logical grouping.
-
-.  **Save the File**
-   Save the `catalog-info.yaml` file.
-
-[TIP]
-For a real-world scenario, you would now commit this file to your Git repository and push it to a remote. The Red Hat Developer Hub would then be configured (via a `Location` entity) to scan this repository and ingest your `hello-world-service` into its catalog. We will cover the actual registration process in a later topic.
-
-== Best Practices and Troubleshooting
-
-*   **YAML Syntax Validation**: Always ensure your `catalog-info.yaml` is valid YAML. Incorrect indentation or syntax errors will prevent the Developer Hub from ingesting the entity. Many IDEs offer YAML linting.
-*   **Placement**: The `catalog-info.yaml` file should typically reside in the root directory of the repository containing the source code for the entity it describes.
-*   **Unique Names**: The `metadata.name` field must be unique *per kind* within your Developer Hub instance. Avoid generic names that could conflict.
-*   **Required Fields**: Ensure all required fields for a given `kind` are present. Missing fields will result in ingestion errors.
-*   **Reference Existing Entities**: When using `owner`, `system`, or `dependsOn`, make sure the referenced entities (e.g., `group:my-team`, `system:my-platform`) actually exist in your Developer Hub catalog, or are defined in other `catalog-info.yaml` files that will also be ingested.
-*   **Annotations for Integration**: Leverage annotations extensively to link your catalog entities to other tools and services (e.g., CI/CD systems, monitoring dashboards, documentation).
-
-By understanding and correctly utilizing the `catalog-info.yaml` file, you empower Red Hat Developer Hub to build a comprehensive, accurate, and valuable catalog of your organization's software landscape.</code></pre>
+touch catalog-info.yaml
+----</pre>
+</div>
+</div>
+</li>
+<li>
+<p><strong>Add Component Definition</strong>
+Open <code>catalog-info.yaml</code> with your text editor and add the following content. This defines a basic <code>Component</code> representing a simple "Hello World" microservice.</p>
+<div class="literalblock">
+<div class="content">
+<pre>[source,yaml]
+----
+# catalog-info.yaml for a 'Hello World' service
+apiVersion: backstage.io/v1alpha1
+kind: Component
+metadata:
+  name: hello-world-service
+  description: A minimal service that responds with "Hello World!".
+  annotations:
+    backstage.io/techdocs-ref: url:./
+    github.com/project-slug: your-github-org/hello-world-service # Replace with your GitHub org/repo
+  tags:
+    - getting-started
+    - demo
+    - microservice
+spec:
+  type: service
+  lifecycle: experimental # Start with experimental, you can change it later
+  owner: group:your-team-name # Replace with your actual team name or user ID
+  system: learning-platform # An example system, can be changed
+  # No explicit dependencies for a simple hello world service
+----</pre>
+</div>
+</div>
+</li>
+<li>
+<p><strong>Review the Content</strong>
+Carefully examine each field you&#8217;ve entered:</p>
+<div class="ulist">
+<ul>
+<li>
+<p><code>apiVersion</code>: Standard <code>backstage.io/v1alpha1</code>.</p>
+</li>
+<li>
+<p><code>kind</code>: Set to <code>Component</code> because it&#8217;s a deployable service.</p>
+</li>
+<li>
+<p><code>metadata.name</code>: <code>hello-world-service</code> is its unique identifier.</p>
+</li>
+<li>
+<p><code>metadata.description</code>: A brief summary.</p>
+</li>
+<li>
+<p><code>metadata.annotations.backstage.io/techdocs-ref</code>: Points to documentation in the current directory.</p>
+</li>
+<li>
+<p><code>metadata.annotations.github.com/project-slug</code>: <strong>Remember to replace <code>your-github-org/hello-world-service</code> with an actual or hypothetical GitHub repository slug.</strong></p>
+</li>
+<li>
+<p><code>metadata.tags</code>: Used for categorization.</p>
+</li>
+<li>
+<p><code>spec.type</code>: <code>service</code> indicates it&#8217;s a running application.</p>
+</li>
+<li>
+<p><code>spec.lifecycle</code>: <code>experimental</code> denotes it&#8217;s still under development.</p>
+</li>
+<li>
+<p><code>spec.owner</code>: <code>group:your-team-name</code> assigns ownership. <strong>Replace <code>your-team-name</code> with your actual team name or user ID prefixed with <code>user:</code>.</strong></p>
+</li>
+<li>
+<p><code>spec.system</code>: <code>learning-platform</code> puts it into a logical grouping.</p>
+</li>
+</ul>
+</div>
+</li>
+<li>
+<p><strong>Save the File</strong>
+Save the <code>catalog-info.yaml</code> file.</p>
+</li>
+</ol>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-tip" title="Tip"></i>
+</td>
+<td class="content">
+For a real-world scenario, you would now commit this file to your Git repository and push it to a remote. The Red Hat Developer Hub would then be configured (via a <code>Location</code> entity) to scan this repository and ingest your <code>hello-world-service</code> into its catalog. We will cover the actual registration process in a later topic.
+</td>
+</tr>
+</table>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="_best_practices_and_troubleshooting"><a class="anchor" href="#_best_practices_and_troubleshooting"></a>Best Practices and Troubleshooting</h2>
+<div class="sectionbody">
+<div class="ulist">
+<ul>
+<li>
+<p><strong>YAML Syntax Validation</strong>: Always ensure your <code>catalog-info.yaml</code> is valid YAML. Incorrect indentation or syntax errors will prevent the Developer Hub from ingesting the entity. Many IDEs offer YAML linting.</p>
+</li>
+<li>
+<p><strong>Placement</strong>: The <code>catalog-info.yaml</code> file should typically reside in the root directory of the repository containing the source code for the entity it describes.</p>
+</li>
+<li>
+<p><strong>Unique Names</strong>: The <code>metadata.name</code> field must be unique <strong>per kind</strong> within your Developer Hub instance. Avoid generic names that could conflict.</p>
+</li>
+<li>
+<p><strong>Required Fields</strong>: Ensure all required fields for a given <code>kind</code> are present. Missing fields will result in ingestion errors.</p>
+</li>
+<li>
+<p><strong>Reference Existing Entities</strong>: When using <code>owner</code>, <code>system</code>, or <code>dependsOn</code>, make sure the referenced entities (e.g., <code>group:my-team</code>, <code>system:my-platform</code>) actually exist in your Developer Hub catalog, or are defined in other <code>catalog-info.yaml</code> files that will also be ingested.</p>
+</li>
+<li>
+<p><strong>Annotations for Integration</strong>: Leverage annotations extensively to link your catalog entities to other tools and services (e.g., CI/CD systems, monitoring dashboards, documentation).</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>By understanding and correctly utilizing the <code>catalog-info.yaml</code> file, you empower Red Hat Developer Hub to build a comprehensive, accurate, and valuable catalog of your organization&#8217;s software landscape.</p>
+</div>
 </div>
 </div>
 <nav class="pagination">
