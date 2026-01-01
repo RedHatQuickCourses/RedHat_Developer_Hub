@@ -1,6 +1,5 @@
 #  A platform for developers
 
-asciidoc
 [[a-platform-for-developers]]
 = A platform for developers
 

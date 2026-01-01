@@ -6,9 +6,9 @@
 Course Title:  Introduction to Red Hat Developer Hub
 
 Description:
-Course description FIXME
+Course description: Basic Introduction to Red Hat Developer Hub portal
 
-Duration: FIXME hours
+Duration: 30 mins
 
 == Topics covered in this course
 
@@ -25,6 +25,5 @@ Duration: FIXME hours
 
 This course assumes that you have the following prior experience:
 
-* Course or experience...
-* Course or experience...
-* Course or experience...
+* Basics of Kubernetes or OCP
+* Basics Devops 

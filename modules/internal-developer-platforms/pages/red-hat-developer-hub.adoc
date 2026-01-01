@@ -2,7 +2,6 @@
 
 Here's the detailed educational content for "Red Hat Developer Hub" in Antora AsciiDoc format, incorporating technical explanations and a hands-on activity.
 
-asciidoc
 [[red-hat-developer-hub]]
 === Red Hat Developer Hub
 

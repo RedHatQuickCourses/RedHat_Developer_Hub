@@ -2,7 +2,6 @@
 
 Antora AsciiDoc format is used for the content.
 
-adoc
 = The catalog-info.yaml File
 
 The `catalog-info.yaml` file is the cornerstone for defining and registering entities within the Red Hat Developer Hub's Software Catalog. It acts as a manifest, providing a standardized way to describe software components, APIs, systems, and other resources across an organization. By placing this file in the root directory of a Git repository, you make your software discoverable and manageable within the Developer Hub ecosystem.
