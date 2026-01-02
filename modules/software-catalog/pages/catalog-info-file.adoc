@@ -1,6 +1,5 @@
 #  catalog-info file
 
-Antora AsciiDoc format is used for the content.
 
 = The catalog-info.yaml File
 

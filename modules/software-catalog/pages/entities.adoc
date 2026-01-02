@@ -1,6 +1,5 @@
 #  Entities
 
-Here is the detailed educational content for "Entities" in Antora AsciiDoc format.
 
 = Entities
 
